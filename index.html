@@ -1,653 +1,459 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<style>*,*::before,*::after{box-sizing:border-box}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
-<title>6-Day PPL Guide</title>
+<meta name="theme-color" content="#F5F3EE">
+<title>Pavan's 5-Day Split</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap">
 <style>
-/* Layout: gym day-card. Sticky day switcher, stat strip, then a grid of exercise cards in workout order, weekly volume chart at the end. */
 :root{
-  --bg:#EDF0F3; --card:#FFFFFF; --panel:#F5F7F9; --ink:#151A21; --muted:#596473; --line:#D3D9E0;
-  --ghost:#C5CDD6; --far:#8E99A7; --eq:#DDE3EA; --eqs:#8C98A7; --eqp:#B4BEC9;
-  --bad:#C0392B; --good:#2E7D4F;
-  --legs:#2F8A47; --core:#6E52C2; --pull:#2B5FC7; --push:#C9531A;
-  --day:var(--pull);
-  --f-display:"Big Shoulders Display","Arial Narrow",Impact,sans-serif;
-  --f-body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
-  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --paper:#F5F3EE; --card:#FFFFFF; --ink:#17171B; --mute:#6B6A70; --line:#E6E3DC; --soft:#EFECE5;
+  --accent:#E8572A; --accent-ink:#fff; --ok:#1E9E6A;
+  --machine:#3366E0; --dumbbell:#C98200; --cable:#14936A; --barbell:#5A5A62; --other:#8A55CC;
+  --r:18px; --mono:'JetBrains Mono',ui-monospace,monospace;
 }
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#0E1216; --card:#161B22; --panel:#1B212A; --ink:#E7EBF0; --muted:#9AA5B2; --line:#29313B;
-  --ghost:#38424E; --far:#6A7686; --eq:#252D37; --eqs:#6C7888; --eqp:#3A4552;
-  --legs:#5FBE76; --core:#A48BF0; --pull:#6D9BF5; --push:#EF8A4C; --bad:#F07167; --good:#6BCB8B; color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#0E1216; --card:#161B22; --panel:#1B212A; --ink:#E7EBF0; --muted:#9AA5B2; --line:#29313B;
-  --ghost:#38424E; --far:#6A7686; --eq:#252D37; --eqs:#6C7888; --eqp:#3A4552;
-  --legs:#5FBE76; --core:#A48BF0; --pull:#6D9BF5; --push:#EF8A4C; --bad:#F07167; --good:#6BCB8B; color-scheme:dark}
-:root[data-day="legs"]{--day:var(--legs)} :root[data-day="pull"]{--day:var(--pull)} :root[data-day="push"]{--day:var(--push)}
+@media (prefers-color-scheme:dark){
+  :root{--paper:#111113;--card:#1B1B1F;--ink:#F2F1ED;--mute:#9D9CA3;--line:#2A2A30;--soft:#232328;
+  --machine:#6E95FF;--dumbbell:#F0AE2E;--cable:#3CC892;--barbell:#A9A9B2;--other:#B68BF2}
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:Manrope,system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.45;
+  padding:env(safe-area-inset-top) env(safe-area-inset-right) calc(env(safe-area-inset-bottom) + 96px) env(safe-area-inset-left)}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+input{font:inherit;color:inherit}
+.wrap{max-width:760px;margin:0 auto;padding:0 16px}
 
-body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--card)}
-.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+/* header */
+header{padding:22px 0 6px}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+h1{font-size:clamp(30px,8vw,44px);font-weight:800;letter-spacing:-.03em;line-height:1.02;margin-top:6px}
+h1 em{font-style:normal;color:var(--accent)}
+.sub{color:var(--mute);font-size:15px;margin-top:6px}
+.stats{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 12px;font-size:13px;color:var(--mute)}
+.stat b{display:block;color:var(--ink);font-family:var(--mono);font-size:17px}
 
-header.top{background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:env(safe-area-inset-top,0px);z-index:5}
-header.top .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:10px 20px;padding-block:12px}
-.brand{font-family:var(--f-display);font-weight:800;font-size:22px;letter-spacing:.02em;text-transform:uppercase;margin:0;line-height:1}
-.brand span{color:var(--day)}
-.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-left:auto}
-.tab{font:600 13px/1 var(--f-body);border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:8px;padding:8px 11px;cursor:pointer;display:flex;gap:6px;align-items:center}
-.tab i{width:8px;height:8px;border-radius:50%;display:inline-block}
-.tab[aria-selected="true"]{background:var(--ink);color:var(--card);border-color:var(--ink)}
-.tab:focus-visible,.setb:focus-visible,.btn:focus-visible{outline:2px solid var(--day);outline-offset:2px}
+/* day tabs */
+.tabs{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  padding:10px 0 10px;margin-top:12px;border-bottom:1px solid var(--line)}
+.tabrow{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.tab{border-radius:12px;padding:8px 4px;text-align:center;border:1px solid var(--line);background:var(--card);position:relative}
+.tab .d{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--mute);text-transform:uppercase}
+.tab .f{font-size:13px;font-weight:800;margin-top:1px;white-space:nowrap}
+.tab[aria-selected=true]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.tab[aria-selected=true] .d{color:color-mix(in srgb,var(--paper) 70%,transparent)}
+.tab .today{position:absolute;top:6px;right:7px;width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.prog{display:flex;align-items:center;gap:10px;margin-top:10px}
+.bar{flex:1;height:6px;border-radius:6px;background:var(--soft);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--accent);border-radius:6px;transition:width .4s}
+.prog .n{font-family:var(--mono);font-size:12px;color:var(--mute);min-width:64px;text-align:right}
+.sess{border-radius:999px;padding:6px 12px;font-size:13px;font-weight:700;background:var(--accent);color:var(--accent-ink);white-space:nowrap;font-family:var(--mono)}
+.sess.on{background:var(--card);color:var(--ink);border:1px solid var(--line)}
 
-.dayhead{display:grid;gap:14px;padding-block:28px 18px}
-.eyebrow{font:600 12px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.chip-today{background:var(--day);color:var(--card);padding:4px 8px;border-radius:4px;letter-spacing:.08em}
-h1.dt{font-family:var(--f-display);font-weight:800;font-size:clamp(44px,9vw,76px);line-height:.9;margin:0;text-transform:uppercase;text-wrap:balance}
-h1.dt em{font-style:normal;color:var(--day)}
-.stats{display:flex;flex-wrap:wrap;gap:8px 28px}
-.stat b{display:block;font:600 26px/1.1 var(--f-mono);font-variant-numeric:tabular-nums}
-.stat span{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
-.note{color:var(--muted);font-size:13px;max-width:65ch;margin:0}
-.rowtools{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-.btn{font:500 13px/1 var(--f-body);border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:8px 12px;cursor:pointer}
+.note{margin:14px 0 0;padding:12px 14px;border-radius:14px;background:var(--card);border:1px dashed var(--line);font-size:14px;color:var(--mute)}
+.note b{color:var(--ink)}
 
-.grid{display:grid;grid-template-columns:1fr;gap:16px;padding-bottom:36px}
-@media (min-width:680px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (min-width:1040px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-.card{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;min-width:0}
-.card.done{border-color:var(--day)}
-.figs{background:var(--panel);display:grid;grid-template-columns:1fr;border-bottom:1px solid var(--line);position:relative}
-.figs.two{grid-template-columns:1fr 1fr}
-.figs.two .fig + .fig{border-left:1px dashed var(--line)}
-.fig{display:flex;flex-direction:column;align-items:center;padding:8px 6px 4px;min-width:0}
-.fig svg{width:100%;max-width:260px;height:auto;display:block}
-.fig .cap{font:600 11px/1.2 var(--f-mono);color:var(--muted);text-align:center;padding-bottom:4px}
-.order{position:absolute;top:8px;left:10px;font:600 12px/1 var(--f-mono);color:var(--muted)}
-.tagss{position:absolute;top:8px;right:10px;font:600 10px/1 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;background:var(--day);color:var(--card);padding:4px 6px;border-radius:4px}
-.body{padding:14px 16px 16px;display:grid;gap:10px}
-.name{font-family:var(--f-display);font-weight:600;font-size:24px;line-height:1.05;margin:0;text-wrap:balance}
-.name small{display:block;font:500 12px/1.4 var(--f-body);color:var(--muted);margin-top:2px}
-.rx{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
-.rx b{font:600 28px/1 var(--f-mono);font-variant-numeric:tabular-nums;color:var(--day)}
-.rx span{font-size:13px;color:var(--muted)}
-.mus{display:flex;gap:6px;flex-wrap:wrap}
-.mus span{font-size:11px;font-weight:600;letter-spacing:.04em;padding:3px 7px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
-.sets{display:flex;gap:6px;flex-wrap:wrap}
-.setb{font:600 12px/1 var(--f-mono);min-width:44px;height:34px;border-radius:7px;border:1.5px solid var(--line);background:var(--panel);color:var(--muted);cursor:pointer;font-variant-numeric:tabular-nums}
-.setb[aria-pressed="true"]{background:var(--day);border-color:var(--day);color:var(--card)}
-.cues{margin:0;padding-left:18px;font-size:13.5px;color:var(--ink);display:grid;gap:3px}
-.cues li::marker{color:var(--day)}
-.cuesh{font:600 11px/1 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:2px 0 -4px}
+/* cards */
+.list{display:grid;gap:16px;margin-top:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.card.done{border-color:color-mix(in srgb,var(--ok) 50%,var(--line))}
+.top{display:flex;gap:12px;align-items:flex-start;padding:14px 14px 10px}
+.num{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--mute);padding-top:4px;min-width:22px}
+.card.done .num{color:var(--ok)}
+.tt{flex:1;min-width:0}
+.tt h3{font-size:19px;font-weight:800;letter-spacing:-.015em;line-height:1.2}
+.tt .mus{font-size:13px;color:var(--mute);margin-top:2px}
+.sr{font-family:var(--mono);font-weight:700;font-size:15px;background:var(--soft);border-radius:10px;padding:6px 9px;white-space:nowrap}
+.sr small{font-size:11px;color:var(--mute);font-weight:500;display:block;text-align:center}
 
-section.week{padding-block:8px 48px;display:grid;gap:14px}
-section.week h2{font-family:var(--f-display);font-weight:800;font-size:32px;text-transform:uppercase;margin:0;line-height:1}
-.chartbox{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;overflow-x:auto}
-.chartbox svg{display:block;width:100%;min-width:480px;height:auto}
-.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
-.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
-.strip{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}
-.strip div{border-radius:8px;padding:8px;color:#fff;font-size:12px;line-height:1.25;min-width:0}
-.strip b{display:block;font:600 11px/1 var(--f-mono);opacity:.85;margin-bottom:3px}
-@media (max-width:520px){.strip{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.media{position:relative;aspect-ratio:3/2;background:#222;overflow:hidden;cursor:zoom-in}
+.anim{position:absolute;inset:0}
+.anim img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.anim .bg{object-fit:cover;filter:blur(18px) brightness(.85);transform:scale(1.15)}
+.anim img.f0{background:transparent}
+.anim img.b{animation:flip 2.8s infinite}
+@keyframes flip{0%,38%{opacity:0}50%,88%{opacity:1}100%{opacity:0}}
+.ph{position:absolute;right:10px;bottom:10px;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.1em;
+  background:rgba(23,23,27,.78);color:#fff;border-radius:6px;padding:3px 7px}
+.ph{display:grid}.ph span{grid-area:1/1}
+.ph .p2{animation:flip 2.8s infinite}
+.ph .p1{animation:flipr 2.8s infinite}
+@keyframes flipr{0%,38%{opacity:1}50%,88%{opacity:0}100%{opacity:1}}
+.badges{position:absolute;left:10px;top:10px;display:flex;gap:6px;flex-wrap:wrap}
+.eq{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;
+  background:var(--card);color:var(--ink);border-radius:999px;padding:4px 9px 4px 7px;box-shadow:0 1px 2px rgba(0,0,0,.12)}
+.eq::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--c,var(--other))}
+.tag{font-size:11px;font-weight:800;border-radius:999px;padding:4px 9px;background:var(--ink);color:var(--paper)}
+.tag.sw{background:var(--accent);color:#fff}
+.info{position:absolute;right:10px;top:10px;width:32px;height:32px;border-radius:50%;background:var(--card);font-weight:800;font-size:15px;
+  box-shadow:0 1px 2px rgba(0,0,0,.15);display:grid;place-items:center}
 
-.btn.primary{background:var(--day);border-color:var(--day);color:var(--card);font-weight:600}
-.tplan{display:grid;gap:12px;padding-bottom:24px}
-.tplan h2{font-family:var(--f-display);font-weight:800;font-size:28px;text-transform:uppercase;margin:0;line-height:1}
-.tplan h2 em{font-style:normal;color:var(--day)}
-.rules{display:flex;flex-wrap:wrap;gap:8px}
-.rules span{font-size:12.5px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px 10px}
-.rules b{font-family:var(--f-mono);font-weight:600}
-.tbar{display:flex;height:24px;border-radius:6px;overflow:hidden;gap:2px}
-.tbar i{display:block;min-width:2px}
-.tscale{position:relative;height:16px;font:500 11px/1 var(--f-mono);color:var(--muted)}
-.tscale span{position:absolute;top:2px;transform:translateX(-50%);white-space:nowrap}
-.tscale span.s0{transform:none}
-.tscale span.end{transform:translateX(-100%);color:var(--ink);font-weight:600}
-.ttable{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:12px}
-.ttable table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:560px}
-.ttable th,.ttable td{padding:8px 12px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
-.ttable th{font:600 11px/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.ttable td.n{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
-.ttable tr.minor td{color:var(--muted)}
-.ttable tfoot td{font-weight:600;border-bottom:0}
-.card{scroll-margin-top:96px}
-.card.now{outline:3px solid var(--day);outline-offset:2px}
-body.sess-on main{padding-bottom:310px}
-.sess{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--card);border-top:1px solid var(--line);box-shadow:0 -8px 24px rgba(0,0,0,.14);padding-bottom:env(safe-area-inset-bottom,0px)}
-.sess .wrap{padding-block:12px 14px;display:grid;gap:8px}
-.s-top{display:flex;gap:8px 10px;align-items:center;flex-wrap:wrap}
-.phase{font:600 11px/1 var(--f-mono);letter-spacing:.1em;padding:5px 7px;border-radius:4px;background:var(--panel);color:var(--ink);border:1px solid var(--line)}
-.phase.work{background:var(--day);color:var(--card);border-color:var(--day)}
-.phase.over{background:var(--bad);color:var(--card);border-color:var(--bad)}
-.s-name{font-family:var(--f-display);font-weight:600;font-size:22px;line-height:1.05;min-width:0}
-.s-set{font-size:13px;color:var(--muted)}
-.s-clock{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
-.s-clock b{font:600 clamp(48px,12vw,64px)/1 var(--f-mono);font-variant-numeric:tabular-nums;letter-spacing:-.02em}
-.s-clock b.over{color:var(--bad)}
-.s-clock span{font-size:13px;color:var(--muted)}
-.s-bar{height:6px;background:var(--panel);border-radius:3px;overflow:hidden}
-.s-bar i{display:block;height:100%;background:var(--day);width:0}
-.s-bar i.over{background:var(--bad)}
-.s-next{font-size:13px;color:var(--muted)}
-.s-meta{display:flex;gap:6px 14px;flex-wrap:wrap;font:500 12.5px/1.3 var(--f-mono);color:var(--muted);align-items:center}
-.pace{padding:3px 8px;border-radius:999px;border:1px solid currentColor;font-weight:600}
-.pace.good{color:var(--good)} .pace.bad{color:var(--bad)}
-.s-btns{display:flex;gap:8px;flex-wrap:wrap}
-.s-btns .btn{padding:12px 14px;font-size:14px}
-.s-btns .primary{flex:1 1 130px}
-svg .near{stroke:var(--ink);stroke-width:5;fill:none;stroke-linecap:round;stroke-linejoin:round}
-svg .farl{stroke:var(--far);stroke-width:5;fill:none;stroke-linecap:round;stroke-linejoin:round}
-svg .ghost{stroke:var(--ghost);stroke-width:4;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1 6}
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.body{padding:12px 14px 14px}
+.cues{display:grid;gap:6px}
+.cues li{list-style:none;font-size:14px;padding-left:18px;position:relative}
+.cues li::before{content:"";position:absolute;left:3px;top:.62em;width:6px;height:6px;border-radius:2px;background:var(--accent)}
+
+.track{display:flex;align-items:center;gap:8px;margin-top:14px;flex-wrap:wrap}
+.track .lbl{font-size:12px;font-weight:700;color:var(--mute);text-transform:uppercase;letter-spacing:.08em;margin-right:2px}
+.set{width:42px;height:42px;border-radius:50%;border:2px solid var(--line);font-family:var(--mono);font-weight:700;font-size:15px}
+.set.on{background:var(--ok);border-color:var(--ok);color:#fff}
+.wt{margin-left:auto;display:flex;align-items:center;gap:6px;font-size:12px;color:var(--mute)}
+.wt input{width:62px;border:1px solid var(--line);background:var(--paper);border-radius:10px;padding:8px;font-family:var(--mono);font-size:14px;text-align:center}
+.rest{font-size:12px;color:var(--mute);margin-top:8px}
+
+.alts{margin-top:16px;border-top:1px solid var(--line);padding-top:12px}
+.alts h4{font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);display:flex;justify-content:space-between;align-items:baseline}
+.alts h4 button{font-size:12px;letter-spacing:0;text-transform:none;color:var(--accent);font-weight:700}
+.grid{display:grid;grid-template-columns:repeat(var(--n,3),1fr);gap:8px;margin-top:10px}
+.alt{text-align:left;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:var(--card)}
+.alt .media{aspect-ratio:4/3;cursor:pointer}
+.alt .media .anim img{object-fit:cover}.alt .anim .bg{display:none}
+.alt .cap{padding:7px 8px 8px}
+.alt .cap .eq{box-shadow:none;padding:0;background:none;font-size:10px}
+.alt .cap .nm{font-size:12.5px;font-weight:700;line-height:1.25;margin-top:3px}
+.alt:active{transform:scale(.98)}
+.hint{font-size:12px;color:var(--mute);margin-top:8px}
+
+/* rest bar */
+.restbar{position:fixed;left:0;right:0;bottom:0;z-index:40;padding:10px 16px calc(10px + env(safe-area-inset-bottom));
+  background:var(--ink);color:var(--paper);transform:translateY(110%);transition:transform .3s}
+.restbar.show{transform:none}
+.restbar .in{max-width:760px;margin:0 auto;display:flex;align-items:center;gap:14px}
+.ring{width:54px;height:54px;flex:none;position:relative}
+.ring svg{transform:rotate(-90deg)}
+.ring .t{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--mono);font-weight:700;font-size:14px}
+.rb-txt{flex:1;min-width:0}
+.rb-txt b{display:block;font-size:15px}
+.rb-txt span{font-size:13px;opacity:.7;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
+.rb-btn{border-radius:999px;padding:9px 12px;font-weight:800;font-size:13px;background:color-mix(in srgb,var(--paper) 14%,transparent);color:var(--paper)}
+.rb-btn.go{background:var(--accent);color:#fff}
+.restbar.over{background:var(--accent)}
+
+/* sheet */
+.scrim{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:50;opacity:0;pointer-events:none;transition:opacity .25s}
+.scrim.show{opacity:1;pointer-events:auto}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:51;background:var(--card);border-radius:22px 22px 0 0;max-height:88vh;overflow:auto;
+  transform:translateY(105%);transition:transform .3s;padding-bottom:env(safe-area-inset-bottom)}
+.sheet.show{transform:none}
+.sheet .in{max-width:760px;margin:0 auto;padding:10px 16px 24px}
+.grab{width:40px;height:5px;border-radius:5px;background:var(--line);margin:0 auto 12px}
+.sheet .media{border-radius:14px;cursor:default}
+.sheet h3{font-size:22px;font-weight:800;margin:14px 0 4px;letter-spacing:-.02em}
+.sheet ol{margin:10px 0 0 20px;display:grid;gap:8px;font-size:15px}
+.sheet .close{margin-top:18px;width:100%;padding:13px;border-radius:14px;background:var(--ink);color:var(--paper);font-weight:800}
+.frames{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.frames figure{border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#fff}
+.frames img{width:100%;aspect-ratio:3/2;object-fit:contain;display:block}
+.frames figcaption{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);padding:6px 8px;background:var(--card)}
+
+/* guide */
+.guide{margin-top:28px}
+.guide h2{font-size:22px;font-weight:800;letter-spacing:-.02em}
+.gl{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:12px}
+.g{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
+.g b{display:block;font-size:15px;margin-bottom:3px}
+.g p{font-size:14px;color:var(--mute)}
+.legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;font-size:13px}
+.legend .eq{box-shadow:none;background:none;padding:0}
+footer{margin:28px 0 10px;font-size:12px;color:var(--mute)}
+footer a{color:inherit}
+
+.toast{position:fixed;left:50%;top:calc(14px + env(safe-area-inset-top));transform:translate(-50%,-250%);visibility:hidden;z-index:60;background:var(--ink);color:var(--paper);
+  padding:10px 16px;border-radius:999px;font-size:14px;font-weight:700;transition:transform .3s;max-width:92vw;text-align:center}
+.toast.show{transform:translate(-50%,0);visibility:visible}
+@media (prefers-reduced-motion:reduce){.anim img.b,.ph span{animation-duration:5s}}
 </style>
 </head>
 <body>
-<header class="top">
-  <div class="wrap">
-    <p class="brand">6-Day <span>PPL</span> Guide</p>
-    <div class="tabs" role="tablist" id="tabs"></div>
-  </div>
-</header>
-
-<main class="wrap">
-  <section class="dayhead" id="dayhead"></section>
-  <section class="tplan" id="tplan"></section>
-  <div class="grid" id="grid"></div>
-
-  <section class="week">
-    <h2>Week at a glance</h2>
-    <div class="strip" id="strip"></div>
-    <div class="chartbox">
-      <svg id="vol" viewBox="0 0 640 320" role="img" aria-label="Working sets per muscle group per week"></svg>
-    </div>
-    <div class="legend">
-      <span><i style="background:var(--legs)"></i>Legs</span>
-      <span><i style="background:var(--core)"></i>Core</span>
-      <span><i style="background:var(--pull)"></i>Pull</span>
-      <span><i style="background:var(--push)"></i>Push</span>
-    </div>
-    <p class="note">Weekly working sets by main muscle worked. Supersets count each exercise's 4 rounds. Treadmill finishers (100 kcal × 6 = 600 kcal/week) are not included. The "Today" tag assumes Day 1 is Monday and Sunday is rest.</p>
-  </section>
-</main>
-
-<div class="sess" id="sess" hidden>
- <div class="wrap">
-  <div class="s-top"><span class="phase" id="sPhase">WORK</span><span class="s-name" id="sName"></span><span class="s-set" id="sSet"></span></div>
-  <div class="s-clock"><b id="sTime">0:00</b><span id="sTarget"></span></div>
-  <div class="s-bar"><i id="sBar"></i></div>
-  <div class="s-next" id="sNext"></div>
-  <div class="s-meta" id="sMeta"></div>
-  <div class="s-btns"><button class="btn primary" id="sMain">Set done</button><button class="btn" id="sPause">Pause</button><button class="btn" id="sSound">Mute</button><button class="btn" id="sEnd">End</button></div>
- </div>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Pavan · Push · Pull · Legs · 5 days</div>
+    <h1 id="title">Legs A</h1>
+    <p class="sub" id="focus"></p>
+    <div class="stats" id="stats"></div>
+  </header>
 </div>
 
-<script>
-/* ---------- figure engine ---------- */
-const ST={h:[102,30],sh:[100,42],el:[100,66],wr:[101,89],hp:[100,82],kn:[101,115],an:[100,147],ft:[112,149]};
-const FS={h:[100,26],sL:[86,40],sR:[114,40],eL:[83,64],wL:[82,86],eR:[117,64],wR:[118,86],hL:[92,82],hR:[108,82],kL:[91,114],kR:[109,114],aL:[90,146],aR:[110,146]};
-const FSEAT={h:[100,40],sL:[86,54],sR:[114,54],eL:[83,78],wL:[84,100],eR:[117,78],wR:[116,100],hL:[90,96],hR:[110,96],kL:[84,108],kR:[116,108],aL:[82,146],aR:[118,146]};
-const MAT=[{k:'rect',x:14,y:148,w:172,h:4}];
-const SEATF=[{k:'rect',x:84,y:38,w:32,h:58},{k:'rect',x:78,y:94,w:44,h:8},{k:'ln',p:[100,102,100,150],w:4}];
+<nav class="tabs" aria-label="Workout days">
+  <div class="wrap">
+    <div class="tabrow" id="tabs" role="tablist"></div>
+    <div class="prog">
+      <div class="bar"><i id="pbar"></i></div>
+      <span class="n" id="pnum">0 / 0 sets</span>
+      <button class="sess" id="sess">Start ▸</button>
+    </div>
+  </div>
+</nav>
 
-const EX={
-goblet:{n:'Goblet Squats',m:['Quads','Glutes'],vol:'Quads',
- cues:['Hold the dumbbell at your chest, elbows inside the knees','Sit hips back and down until thighs are parallel','Drive up through mid-foot, chest tall'],
- A:{...ST,el:[106,60],wr:[110,48],el2:[103,60],wr2:[107,48]},
- B:{hp:[84,118],kn:[118,121],kn2:[115,121],an:[100,147],an2:[97,147],ft:[112,149],ft2:[109,149],sh:[98,80],h:[103,68],el:[106,98],wr:[110,86],el2:[103,98],wr2:[107,86]},
- M:[{k:'db',j:'wr',o:'v'}]},
-lunge:{n:'Lunges',m:['Quads','Glutes'],vol:'Quads',
- cues:['Take a long step; both knees bend to about 90°','Front knee tracks over the toes, torso upright','Push through the front heel to return, alternate legs'],
- A:{...ST},B:{hp:[98,108],sh:[98,68],h:[99,56],el:[98,92],wr:[99,114],kn:[130,112],an:[130,146],ft:[142,149],kn2:[86,140],an2:[60,138],ft2:[54,149]},
- M:[{k:'db',j:'wr2',o:'h'},{k:'db',j:'wr',o:'h'}]},
-legcurl:{n:'Leg Curls',m:['Hamstrings'],vol:'Hamstrings',
- cues:['Knees just off the pad edge, hips pressed down','Curl heels toward glutes, squeeze for 1 second','Lower slowly over about 3 seconds'],
- S:[{k:'ln',p:[30,60,30,150],w:4},{k:'rect',x:44,y:100,w:104,h:7},{k:'ln',p:[60,107,60,150],w:3},{k:'ln',p:[136,107,136,150],w:3}],
- A:{h:[160,90],sh:[146,94],hp:[106,95],kn:[72,95],an:[40,94],ft:[40,104],el:[144,118],wr:[158,112]},
- B:{an:[64,63],ft:[54,66]},M:[{k:'pad',j:'an'}]},
-legext:{n:'Leg Extensions',m:['Quads'],vol:'Quads',
- cues:['Line your knee up with the machine pivot','Extend fully and squeeze the quads at the top','Lower under control, no swinging'],
- S:[{k:'ln',p:[70,112,62,62],w:7},{k:'rect',x:66,y:112,w:58,h:7},{k:'ln',p:[94,119,94,150],w:4},{k:'circ',x:122,y:110,r:3}],
- A:{h:[76,58],sh:[78,70],hp:[86,108],kn:[120,110],an:[124,142],ft:[134,146],el:[80,94],wr:[94,110]},
- B:{an:[153,98],ft:[157,88]},M:[{k:'pad',j:'an'}]},
-seatcalf:{n:'Seated Calf Raises',m:['Calves'],vol:'Calves',
- cues:['Balls of feet on the block, pad snug on lower thighs','Drop the heels for a full stretch','Rise as high as you can, pause 1 second'],
- S:[{k:'rect',x:64,y:114,w:46,h:7},{k:'ln',p:[86,121,86,150],w:4},{k:'rect',x:126,y:142,w:18,h:8}],
- A:{h:[87,60],sh:[86,72],hp:[86,110],kn:[120,112],an:[122,144],ft:[136,142],el:[96,94],wr:[114,104]},
- B:{kn:[121,103],an:[124,136],ft:[136,141],el:[97,90],wr:[115,96]},M:[{k:'kpad',j:'kn'}]},
-legpress:{n:'Leg Press',m:['Quads','Glutes'],vol:'Quads',
- cues:['Feet shoulder-width in the middle of the platform','Lower until knees reach about 90°, lower back stays on the pad','Press up without locking the knees'],
- S:[{k:'ln',p:[104,146,178,60],w:3},{k:'ln',p:[42,94,70,130],w:8},{k:'ln',p:[70,132,98,132],w:6}],
- A:{h:[44,86],sh:[52,96],hp:[80,126],kn:[96,96],an:[124,92],ft:[128,82],el:[66,112],wr:[82,126]},
- B:{kn:[110,108],an:[136,86],ft:[144,78]},M:[{k:'sled',j:'ft'}]},
-sldl:{n:'Stiff-Leg Deadlifts',m:['Hamstrings','Glutes','Lower back'],vol:'Hamstrings',
- cues:['Soft knees, keep the weight close to your legs','Push hips back until you feel the hamstrings stretch','Flat back; stand by driving the hips forward'],
- A:{...ST},B:{hp:[86,84],kn:[96,115],an:[100,147],ft:[112,149],sh:[124,70],h:[134,64],el:[124,94],wr:[124,117]},
- M:[{k:'plate',j:'wr',r:12}]},
-standcalf:{n:'Standing Calf Raises',m:['Calves'],vol:'Calves',
- cues:['Balls of feet on the step edge, heels hanging','Full stretch at the bottom, full rise at the top','Slow tempo, no bouncing'],
- S:[{k:'rect',x:98,y:140,w:22,h:10}],
- A:{h:[102,27],sh:[100,39],el:[100,63],wr:[101,86],hp:[100,79],kn:[101,112],an:[100,144],ft:[114,140]},
- B:{h:[104,13],sh:[102,25],el:[102,49],wr:[103,72],hp:[102,65],kn:[103,98],an:[104,128],ft:[116,140]},
- M:[{k:'db',j:'wr',o:'h'}]},
-revcrunch:{n:'Reverse Crunches',m:['Lower abs'],vol:'Abs',noFloor:1,
- cues:['Lie flat, hands by your sides, knees bent 90°','Curl the hips up off the floor using your abs','Lower slowly; don\'t swing the legs'],
- S:MAT,A:{h:[34,138],sh:[48,142],hp:[92,143],kn:[96,110],an:[126,108],ft:[132,100],el:[72,145],wr:[95,146]},
- B:{hp:[90,130],kn:[70,104],an:[96,92],ft:[100,84]}},
-mtn:{n:'Mountain Climbers',m:['Abs','Hip flexors'],vol:'Abs',
- cues:['Hands under shoulders, body in one straight line','Drive knees toward the chest, alternating','Keep hips level; 15 per leg'],
- A:{h:[158,98],sh:[146,104],el:[146,126],wr:[146,148],hp:[106,110],kn:[74,124],an:[42,138],ft:[38,148],kn2:[128,128],an2:[110,140],ft2:[112,148]},
- B:{kn:[128,128],an:[110,140],ft:[112,148],kn2:[74,124],an2:[42,138],ft2:[38,148]}},
-legraise:{n:'Leg Raises',m:['Lower abs'],vol:'Abs',noFloor:1,
- cues:['Press your lower back into the floor','Raise straight legs to vertical','Lower to just above the floor without touching'],
- S:MAT,A:{h:[34,138],sh:[48,142],hp:[92,143],kn:[126,141],an:[158,139],ft:[162,130],el:[72,145],wr:[95,146]},
- B:{kn:[95,110],an:[98,78],ft:[108,76]}},
-russian:{n:'Russian Twists',m:['Obliques'],vol:'Abs',noFloor:1,
- cues:['Lean back about 45°, chest up, feet off the floor','Rotate the torso side to side; hands follow','One touch each side = 1 rep (heels down to make it easier)'],
- S:[...MAT,{k:'arc',d:'M52 86 Q 84 66 118 88'}],
- A:{h:[63,96],sh:[66,108],hp:[88,142],kn:[118,120],an:[140,136],ft:[150,132],el:[84,128],wr:[104,138],el2:[82,124],wr2:[102,134]},
- B:{el:[86,112],wr:[108,110],el2:[84,108],wr2:[106,106]},M:[{k:'ball',j:'wr'}]},
-tread:{n:'Treadmill',m:['Cardio'],vol:null,noFloor:1,
- cues:['Incline walk or jog until the console reads 100 kcal','About 10–12 min at 3.5 mph, 8–10% incline','Arms swing freely; don\'t hold the rails'],
- S:[{k:'ln',p:[36,150,172,146],w:6},{k:'ln',p:[160,146,166,64],w:4},{k:'ln',p:[166,64,140,72],w:4},{k:'rect',x:160,y:54,w:14,h:10}],
- A:{h:[102,30],sh:[100,42],hp:[100,82],kn:[110,113],an:[116,143],ft:[127,145],kn2:[93,114],an2:[80,140],ft2:[88,147],el:[94,64],wr:[92,86],el2:[106,64],wr2:[116,80]},
- B:{kn:[93,114],an:[80,140],ft:[88,147],kn2:[110,113],an2:[116,143],ft2:[127,145],el:[106,64],wr:[116,80],el2:[94,64],wr2:[92,86]}},
-tbar:{n:'T-Bar Rows',m:['Mid back','Lats'],vol:'Back',
- cues:['Hinge to about 45°, chest up, back flat','Pull the handles to your lower chest','Squeeze shoulder blades, lower under control'],
- S:[{k:'circ',x:30,y:146,r:4}],
- A:{h:[128,60],sh:[118,68],hp:[86,92],kn:[100,118],an:[94,147],ft:[106,149],el:[120,92],wr:[121,115]},
- B:{el:[96,74],wr:[108,92]},M:[{k:'lm',p:[30,146],j:'wr'}]},
-latpd:{n:'Lat Pulldowns',m:['Lats','Biceps'],vol:'Back',
- cues:['Thighs locked under the pad, grip just wider than shoulders','Pull the bar to your upper chest, elbows down and back','Only a slight lean back; control the bar up'],
- S:[{k:'ln',p:[70,2,150,2],w:4},{k:'ln',p:[150,2,150,150],w:4},{k:'circ',x:112,y:5,r:4},{k:'rect',x:78,y:120,w:42,h:6},{k:'ln',p:[99,126,99,150],w:4},{k:'circ',x:134,y:110,r:6}],
- A:{h:[96,66],sh:[94,78],hp:[98,116],kn:[132,118],an:[132,148],ft:[142,149],el:[104,56],wr:[110,34]},
- B:{h:[94,66],sh:[92,78],el:[84,100],wr:[104,86]},M:[{k:'cable',a:[112,5],j:'wr'},{k:'bar',j:'wr',w:26}]},
-dbrow:{n:'Dumbbell Rows',m:['Lats','Mid back'],vol:'Back',
- cues:['One knee and one hand on the bench, back flat','Pull the dumbbell to your hip, elbow close','Let it hang for a full stretch at the bottom'],
- S:[{k:'rect',x:62,y:112,w:92,h:7},{k:'ln',p:[72,119,72,150],w:3},{k:'ln',p:[144,119,144,150],w:3}],
- A:{h:[144,90],sh:[132,94],hp:[92,96],kn:[88,124],an:[86,148],ft:[98,149],kn2:[100,110],an2:[74,110],ft2:[66,106],el:[132,118],wr:[132,140],el2:[136,103],wr2:[138,111]},
- B:{el:[112,86],wr:[122,106]},M:[{k:'db',j:'wr',o:'h'}]},
-hyper:{n:'Hyperextensions',m:['Lower back','Glutes'],vol:'Lower back',
- cues:['Pad just below the hip bones, arms crossed on chest','Lower the torso with a neutral spine','Rise until your body is a straight line, not beyond'],
- S:[{k:'ln',p:[30,150,130,150],w:3},{k:'ln',p:[100,106,102,150],w:3},{k:'ln',p:[42,132,96,106],w:3},{k:'ln',p:[34,134,46,116],w:5},{k:'ln',p:[86,116,108,96],w:8}],
- A:{an:[48,130],ft:[42,120],kn:[70,118],hp:[96,102],sh:[122,132],h:[129,140],el:[106,124],wr:[116,118]},
- B:{sh:[130,78],h:[141,72],el:[118,96],wr:[124,88]}},
-curl:{n:'Bicep Curls',m:['Biceps'],vol:'Biceps',
- cues:['Elbows pinned to your sides','Curl up and turn palms fully up','Lower over 2–3 seconds, no swinging'],
- A:{...ST},B:{el:[101,66],wr:[110,45],el2:[98,66],wr2:[107,45]},M:[{k:'db',j:'wr2',o:'h'},{k:'db',j:'wr',o:'h'}]},
-cablecurl:{n:'Cable Bicep Curls',m:['Biceps'],vol:'Biceps',
- cues:['Stand close to the low pulley','Elbows fixed, curl to shoulder height','Constant tension, slow return'],
- S:[{k:'ln',p:[160,0,160,150],w:4},{k:'circ',x:154,y:144,r:4}],
- A:{...ST,wr:[104,88]},B:{wr:[112,46]},M:[{k:'cable',a:[154,144],j:'wr'},{k:'bar',j:'wr',w:12}]},
-incdb:{n:'Incline DB Bench Press',m:['Upper chest','Front delts'],vol:'Chest',
- cues:['Bench at about 30°, feet planted','Lower dumbbells to the upper chest, elbows ~45°','Press up and slightly together'],
- S:[{k:'ln',p:[56,133,56,150],w:3},{k:'ln',p:[104,110,108,150],w:3},{k:'ln',p:[66,130,118,100],w:8},{k:'ln',p:[40,130,72,130],w:6}],
- A:{h:[118,92],sh:[106,100],hp:[70,122],kn:[40,116],an:[36,147],ft:[26,149],el:[112,76],wr:[114,52]},
- B:{el:[98,120],wr:[106,98]},M:[{k:'db',j:'wr',o:'h'}]},
-pecdeck:{n:'Pec Deck Flys',m:['Chest'],vol:'Chest',v:'f',
- cues:['Set the seat so handles sit at chest height','Bring the pads together and squeeze the chest','Open slowly until you feel a stretch'],
- S:SEATF,A:{...FSEAT,eL:[62,56],wL:[62,32],eR:[138,56],wR:[138,32]},
- B:{eL:[92,60],wL:[96,36],eR:[108,60],wR:[104,36]},M:[{k:'thick',a:'eL',b:'wL'},{k:'thick',a:'eR',b:'wR'}]},
-ohp:{n:'Overhead Press (OHP)',m:['Shoulders','Triceps'],vol:'Shoulders',
- cues:['Grip just outside shoulders, glutes and core tight','Press straight up; head moves through at the top','Lower back to chin level'],
- A:{...ST,el:[112,62],wr:[110,40],el2:[109,62],wr2:[107,40]},B:{el:[101,18],wr:[102,-5],el2:[98,18],wr2:[99,-5]},
- M:[{k:'plate',j:'wr',r:9}]},
-lateral:{n:'Lateral Raises',m:['Side delts'],vol:'Shoulders',v:'f',
- cues:['Slight elbow bend, lean a touch forward','Raise to shoulder height, lead with the elbows','Lower slowly; light weight, strict form'],
- A:{...FS},B:{eL:[64,42],wL:[42,44],eR:[136,42],wR:[158,44]},M:[{k:'db',j:'wL',o:'d'},{k:'db',j:'wR',o:'d'}]},
-ohtri:{n:'Overhead Cable Tricep Extension',m:['Triceps (long head)'],vol:'Triceps',
- cues:['Face away from the cable, rope behind your head','Elbows point forward and stay still','Extend fully, then stretch back slowly'],
- S:[{k:'ln',p:[34,0,34,150],w:4},{k:'circ',x:40,y:70,r:4}],
- A:{h:[110,34],sh:[106,46],hp:[96,84],kn:[108,114],an:[116,146],ft:[126,148],kn2:[88,114],an2:[78,144],ft2:[86,148],el:[112,22],wr:[92,34],el2:[109,22],wr2:[90,34]},
- B:{wr:[126,2],wr2:[123,2]},M:[{k:'cable',a:[40,70],j:'wr'},{k:'rope',j:'wr'}]},
-pushdown:{n:'Tricep Pushdowns',m:['Triceps'],vol:'Triceps',
- cues:['Elbows pinned to your sides','Push the rope down and spread the ends at the bottom','Return only to about 90°'],
- S:[{k:'ln',p:[156,0,156,150],w:4},{k:'circ',x:148,y:8,r:4}],
- A:{...ST,sh:[103,42],h:[106,30],el:[102,66],wr:[118,50],el2:[99,66],wr2:[115,50]},
- B:{wr:[110,88],wr2:[107,88]},M:[{k:'cable',a:[148,8],j:'wr'},{k:'rope',j:'wr'}]},
-dips:{n:'Tricep Dips',m:['Triceps','Chest'],vol:'Triceps',
- cues:['Stay upright for triceps (lean forward = more chest)','Lower until upper arms are parallel to the floor','Use the assisted machine or bench dips if needed'],
- S:[{k:'ln',p:[78,82,78,150],w:4},{k:'ln',p:[134,82,134,150],w:4},{k:'ln',p:[72,80,140,80],w:5}],
- A:{h:[112,22],sh:[109,34],el:[110,58],wr:[110,80],hp:[104,74],kn:[100,106],an:[84,122],ft:[80,130]},
- B:{h:[112,44],sh:[108,56],el:[88,70],hp:[100,94],kn:[94,122],an:[76,122],ft:[72,130]}},
-flatdb:{n:'Flat DB Bench Press',m:['Chest','Triceps'],vol:'Chest',
- cues:['Shoulder blades pulled back and down','Lower dumbbells to chest level','Press up; don\'t clang them at the top'],
- S:[{k:'rect',x:40,y:112,w:92,h:7},{k:'ln',p:[52,119,52,150],w:3},{k:'ln',p:[120,119,120,150],w:3}],
- A:{h:[120,105],sh:[108,108],hp:[66,108],kn:[42,112],an:[36,147],ft:[26,149],el:[110,84],wr:[110,60]},
- B:{el:[96,126],wr:[104,104]},M:[{k:'db',j:'wr',o:'h'}]},
-cablefly:{n:'Cable Flys (Low to High)',m:['Upper chest'],vol:'Chest',v:'f',
- cues:['Pulleys set low, slight forward lean','Sweep hands up and together to chest/eye height','Keep the slight elbow bend fixed throughout'],
- S:[{k:'ln',p:[10,0,10,150],w:4},{k:'ln',p:[190,0,190,150],w:4},{k:'circ',x:14,y:142,r:4},{k:'circ',x:186,y:142,r:4}],
- A:{...FS,eL:[70,60],wL:[56,80],eR:[130,60],wR:[144,80]},B:{eL:[76,20],wL:[94,8],eR:[124,20],wR:[106,8]},
- M:[{k:'cable',a:[14,142],j:'wL'},{k:'cable',a:[186,142],j:'wR'},{k:'grip',j:'wL'},{k:'grip',j:'wR'}]},
-shpress:{n:'Shoulder Press',m:['Shoulders','Triceps'],vol:'Shoulders',v:'f',
- cues:['Seated, back flat against the pad','Start with dumbbells at ear level','Press up and slightly in, lower under control'],
- S:SEATF,A:{...FSEAT,eL:[64,60],wL:[64,36],eR:[136,60],wR:[136,36]},B:{eL:[80,32],wL:[90,10],eR:[120,32],wR:[110,10]},
- M:[{k:'db',j:'wL',o:'h'},{k:'db',j:'wR',o:'h'}]},
+<main class="wrap">
+  <div id="banner"></div>
+  <div class="list" id="list"></div>
+
+  <section class="guide">
+    <h2>How to run each session</h2>
+    <div class="gl">
+      <div class="g"><b>Tempo 2 – 1</b><p>Lower for 2 seconds, lift for 1. Each photo pair shows the start and the end of one rep.</p></div>
+      <div class="g"><b>Rest by lift type</b><p>Big compound lifts 90 s, isolation moves 60 s, core and calves 45 s. Tick a set and the rest timer starts on its own.</p></div>
+      <div class="g"><b>Beat last week</b><p>Log your weight on each lift. When every set hits the top of the rep range, go up by the smallest step.</p></div>
+      <div class="g"><b>Machine taken?</b><p>Tap any option under “Swap options”. It replaces the lift for that day, and the page remembers your pick.</p></div>
+    </div>
+    <div class="legend" id="legend"></div>
+  </section>
+  <footer>Exercise photos and steps: <a href="https://github.com/yuhonas/free-exercise-db">Free Exercise DB</a> (public domain). Progress is saved on this device only.</footer>
+</main>
+
+<div class="restbar" id="restbar" role="status" aria-live="polite">
+  <div class="in">
+    <div class="ring"><svg width="54" height="54"><circle cx="27" cy="27" r="23" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="5"/><circle id="rc" cx="27" cy="27" r="23" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-dasharray="144.5" stroke-dashoffset="0"/></svg><div class="t" id="rt">1:30</div></div>
+    <div class="rb-txt"><b id="rh">Rest</b><span id="rn">Next: set 2</span></div>
+    <button class="rb-btn" id="radd">+15s</button>
+    <button class="rb-btn go" id="rskip">Go</button>
+  </div>
+</div>
+
+<div class="scrim" id="scrim"></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true"><div class="in" id="sheetin"></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const IMG_BASE = "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/";
+const VAR = {"Goblet_Squat":{"i":["Stand holding a light kettlebell by the horns close to your chest. This will be your starting position.","Squat down between your legs until your hamstrings are on your calves. Keep your chest and head up and your back straight.","At the bottom position, pause and use your elbows to push your knees out. Return to the starting position, and repeat for 10-20 repetitions."]},"Hack_Squat":{"i":["Place the back of your torso against the back pad of the machine and hook your shoulders under the shoulder pads provided.","Position your legs in the platform using a shoulder width medium stance with the toes slightly pointed out. Tip: Keep your head up at all times and also maintain the back on the pad at all times.","Place your arms on the side handles of the machine and disengage the safety bars (which on most designs is done by moving the side handles from a facing front position to a diagonal position).","Now straighten your legs without locking the knees. This will be your starting position. (Note: For the purposes of this discussion we will use the medium stance described above which targets overall development; however you can choose any of the three stances described in the foot positioning section)."]},"Smith_Machine_Squat":{"i":["To begin, first set the bar on the height that best matches your height. Once the correct height is chosen and the bar is loaded, step under the bar and place the back of your shoulders (slightly below the neck) across it.","Hold on to the bar using both arms at each side (palms facing forward), unlock it and lift it off the rack by first pushing with your legs and at the same time straightening your torso.","Position your legs using a shoulder width medium stance with the toes slightly pointed out. Keep your head up at all times and also maintain a straight back. This will be your starting position. (Note: For the purposes of this discussion we will use the medium stance which targets overall development; however you can choose any of the three stances discussed in the foot stances section).","Begin to slowly lower the bar by bending the knees as you maintain a straight posture with the head up. Continue down until the angle between the upper leg and the calves becomes slightly less than 90-degrees (which is the point in which the upper legs are below parallel to the floor). Inhale as you perform this portion of the movement. Tip: If you performed the exercise correctly, the front of the knees should make an imaginary straight line with the toes that is perpendicular to the front. If your knees are past that imaginary line (if they are past your toes) then you are placing undue stress on the knee and the exercise has been performed incorrectly."]},"Barbell_Squat":{"i":["This exercise is best performed inside a squat rack for safety purposes. To begin, first set the bar on a rack to just below shoulder level. Once the correct height is chosen and the bar is loaded, step under the bar and place the back of your shoulders (slightly below the neck) across it.","Hold on to the bar using both arms at each side and lift it off the rack by first pushing with your legs and at the same time straightening your torso.","Step away from the rack and position your legs using a shoulder width medium stance with the toes slightly pointed out. Keep your head up at all times and also maintain a straight back. This will be your starting position. (Note: For the purposes of this discussion we will use the medium stance described above which targets overall development; however you can choose any of the three stances discussed in the foot stances section).","Begin to slowly lower the bar by bending the knees and hips as you maintain a straight posture with the head up. Continue down until the angle between the upper leg and the calves becomes slightly less than 90-degrees. Inhale as you perform this portion of the movement. Tip: If you performed the exercise correctly, the front of the knees should make an imaginary straight line with the toes that is perpendicular to the front. If your knees are past that imaginary line (if they are past your toes) then you are placing undue stress on the knee and the exercise has been performed incorrectly."]},"Dumbbell_Lunges":{"i":["Stand with your torso upright holding two dumbbells in your hands by your sides. This will be your starting position.","Step forward with your right leg around 2 feet or so from the foot being left stationary behind and lower your upper body down, while keeping the torso upright and maintaining balance. Inhale as you go down. Note: As in the other exercises, do not allow your knee to go forward beyond your toes as you come down, as this will put undue stress on the knee joint. Make sure that you keep your front shin perpendicular to the ground.","Using mainly the heel of your foot, push up and go back to the starting position as you exhale."]},"Smith_Single-Leg_Split_Squat":{"i":["To begin, place a flat bench 2-3 feet behind the smith machine. Then, set the bar on the height that best matches your height. Once the correct height is chosen and the bar is loaded, step under the bar and place the back of your shoulders (slightly below the neck) across it.","Hold on to the bar using both arms at each side (palms facing forward), unlock it and lift it off the rack by first pushing with your legs and at the same time straightening your torso.","Position your legs by placing one foot slightly forward under the bar and extending your other leg back and place the top of your foot on the bench. This will be your starting position","Begin to slowly lower the bar by bending the knee as you maintain a straight posture with the head up. Continue down until the angle between the upper leg and the calf becomes slightly less than 90-degrees (which is the point in which the upper legs are below parallel to the floor). Inhale as you perform this portion of the movement. Tip: If you performed the exercise correctly, the front of the knee should make an imaginary straight line with the toes that is perpendicular to the front. If your knee is past that imaginary line (if it is past your toes) then you are placing undue stress on the knee and the exercise has been performed incorrectly."]},"Dumbbell_Rear_Lunge":{"i":["Stand with your torso upright holding two dumbbells in your hands by your sides. This will be your starting position.","Step backward with your right leg around two feet or so from the left foot and lower your upper body down, while keeping the torso upright and maintaining balance. Inhale as you go down. Tip: As in the other exercises, do not allow your knee to go forward beyond your toes as you come down, as this will put undue stress on the knee joint. Make sure that you keep your front shin perpendicular to the ground. Keep the torso upright during the lunge; flexible hip flexors are important. A long lunge emphasizes the Gluteus Maximus; a short lunge emphasizes Quadriceps.","Push up and go back to the starting position as you exhale. Tip: Use the ball of your feet to push in order to accentuate the quadriceps. To focus on the glutes, press with your heels.","Now repeat with the opposite leg."]},"Bodyweight_Walking_Lunge":{"i":["Begin standing with your feet shoulder width apart and your hands on your hips.","Step forward with one leg, flexing the knees to drop your hips. Descend until your rear knee nearly touches the ground. Your posture should remain upright, and your front knee should stay above the front foot.","Drive through the heel of your lead foot and extend both knees to raise yourself back up.","Step forward with your rear foot, repeating the lunge on the opposite leg."]},"Leg_Extensions":{"i":["For this exercise you will need to use a leg extension machine. First choose your weight and sit on the machine with your legs under the pad (feet pointed forward) and the hands holding the side bars. This will be your starting position. Tip: You will need to adjust the pad so that it falls on top of your lower leg (just above your feet). Also, make sure that your legs form a 90-degree angle between the lower and upper leg. If the angle is less than 90-degrees then that means the knee is over the toes which in turn creates undue stress at the knee joint. If the machine is designed that way, either look for another machine or just make sure that when you start executing the exercise you stop going down once you hit the 90-degree angle.","Using your quadriceps, extend your legs to the maximum as you exhale. Ensure that the rest of the body remains stationary on the seat. Pause a second on the contracted position.","Slowly lower the weight back to the original position as you inhale, ensuring that you do not go past the 90-degree angle limit."]},"Single-Leg_Leg_Extension":{"i":["Seat yourself in the machine and adjust it so that you are positioned properly. The pad should be against the lower part of the shin but not in contact with the ankle. Adjust the seat so that the pivot point is in line with your knee. Select a weight appropriate for your abilities.","Maintaining good posture, fully extend one leg, pausing at the top of the motion.","Return to the starting position without letting the weight stop, keeping tension on the muscle."]},"Dumbbell_Step_Ups":{"i":["Stand up straight while holding a dumbbell on each hand (palms facing the side of your legs).","Place the right foot on the elevated platform. Step on the platform by extending the hip and the knee of your right leg. Use the heel mainly to lift the rest of your body up and place the foot of the left leg on the platform as well. Breathe out as you execute the force required to come up.","Step down with the left leg by flexing the hip and knee of the right leg as you inhale. Return to the original standing position by placing the right foot of to next to the left foot on the initial position."]},"Split_Squat_with_Dumbbells":{"i":["Position yourself into a staggered stance with the rear foot elevated and front foot forward.","Hold a dumbbell in each hand, letting them hang at the sides. This will be your starting position.","Begin by descending, flexing your knee and hip to lower your body down. Maintain good posture througout the movement. Keep the front knee in line with the foot as you perform the exercise.","At the bottom of the movement, drive through the heel to extend the knee and hip to return to the starting position."]},"Lying_Leg_Curls":{"i":["Adjust the machine lever to fit your height and lie face down on the leg curl machine with the pad of the lever on the back of your legs (just a few inches under the calves). Tip: Preferably use a leg curl machine that is angled as opposed to flat since an angled position is more favorable for hamstrings recruitment.","Keeping the torso flat on the bench, ensure your legs are fully stretched and grab the side handles of the machine. Position your toes straight (or you can also use any of the other two stances described on the foot positioning section). This will be your starting position.","As you exhale, curl your legs up as far as possible without lifting the upper legs from the pad. Once you hit the fully contracted position, hold it for a second.","As you inhale, bring the legs back to the initial position. Repeat for the recommended amount of repetitions."]},"Seated_Leg_Curl":{"i":["Adjust the machine lever to fit your height and sit on the machine with your back against the back support pad.","Place the back of lower leg on top of padded lever (just a few inches under the calves) and secure the lap pad against your thighs, just above the knees. Then grasp the side handles on the machine as you point your toes straight (or you can also use any of the other two stances) and ensure that the legs are fully straight right in front of you. This will be your starting position.","As you exhale, pull the machine lever as far as possible to the back of your thighs by flexing at the knees. Keep your torso stationary at all times. Hold the contracted position for a second.","Slowly return to the starting position as you breathe in."]},"Pull_Through":{"i":["Begin standing a few feet in front of a low pulley with a rope or handle attached. Face away from the machine, straddling the cable, with your feet set wide apart.","Begin the movement by reaching through your legs as far as possible, bending at the hips. Keep your knees slightly bent. Keeping your arms straight, extend through the hip to stand straight up. Avoid pulling upward through the shoulders; all of the motion should originate through the hips."]},"Ball_Leg_Curl":{"i":["Begin on the floor laying on your back with your feet on top of the ball.","Position the ball so that when your legs are extended your ankles are on top of the ball. This will be your starting position.","Raise your hips off of the ground, keeping your weight on the shoulder blades and your feet.","Flex the knees, pulling the ball as close to you as you can, contracting the hamstrings."]},"Seated_Calf_Raise":{"i":["Sit on the machine and place your toes on the lower portion of the platform provided with the heels extending off. Choose the toe positioning of your choice (forward, in, or out) as per the beginning of this chapter.","Place your lower thighs under the lever pad, which will need to be adjusted according to the height of your thighs. Now place your hands on top of the lever pad in order to prevent it from slipping forward.","Lift the lever slightly by pushing your heels up and release the safety bar. This will be your starting position.","Slowly lower your heels by bending at the ankles until the calves are fully stretched. Inhale as you perform this movement."]},"Dumbbell_Seated_One-Leg_Calf_Raise":{"i":["Place a block on the floor about 12 inches from a flat bench.","Sit on a flat bench and place a dumbbell on your upper left thigh about 3 inches above your knee.","Now place the ball of your left foot on the block. This will be your starting position.","Raise your toes up as high as possible as you exhale and you contract your calf muscle. Hold the contraction for a second."]},"Calf_Press_On_The_Leg_Press_Machine":{"i":["Using a leg press machine, sit down on the machine and place your legs on the platform directly in front of you at a medium (shoulder width) foot stance.","Lower the safety bars holding the weighted platform in place and press the platform all the way up until your legs are fully extended in front of you without locking your knees. (Note: In some leg press units you can leave the safety bars on for increased safety. If your leg press unit allows for this, then this is the preferred method of performing the exercise.) Your torso and the legs should make perfect 90-degree angle. Now carefully place your toes and balls of your feet on the lower portion of the platform with the heels extending off. Toes should be facing forward, outwards or inwards as described at the beginning of the chapter. This will be your starting position.","Press on the platform by raising your heels as you breathe out by extending your ankles as high as possible and flexing your calf. Ensure that the knee is kept stationary at all times. There should be no bending at any time. Hold the contracted position by a second before you start to go back down.","Go back slowly to the starting position as you breathe in by lowering your heels as you bend the ankles until calves are stretched."]},"Standing_Calf_Raises":{"i":["Adjust the padded lever of the calf raise machine to fit your height.","Place your shoulders under the pads provided and position your toes facing forward (or using any of the two other positions described at the beginning of the chapter). The balls of your feet should be secured on top of the calf block with the heels extending off it. Push the lever up by extending your hips and knees until your torso is standing erect. The knees should be kept with a slight bend; never locked. Toes should be facing forward, outwards or inwards as described at the beginning of the chapter. This will be your starting position.","Raise your heels as you breathe out by extending your ankles as high as possible and flexing your calf. Ensure that the knee is kept stationary at all times. There should be no bending at any time. Hold the contracted position by a second before you start to go back down.","Go back slowly to the starting position as you breathe in by lowering your heels as you bend the ankles until calves are stretched."]},"Standing_Dumbbell_Calf_Raise":{"i":["Stand with your torso upright holding two dumbbells in your hands by your sides. Place the ball of the foot on a sturdy and stable wooden board (that is around 2-3 inches tall) while your heels extend off and touch the floor. This will be your starting position.","With the toes pointing either straight (to hit all parts equally), inwards (for emphasis on the outer head) or outwards (for emphasis on the inner head), raise the heels off the floor as you exhale by contracting the calves. Hold the top contraction for a second.","As you inhale, go back to the starting position by slowly lowering the heels."]},"Smith_Machine_Calf_Raise":{"i":["Place a block or weight plate below the bar on the Smith machine. Set the bar to a position that best matches your height. Once the correct height is chosen and the bar is loaded, step onto the plates with the balls of your feet and place the bar on the back of your shoulders.","Take the bar with both hands facing forward. Rotate the bar to unrack it. This will be your starting position.","Raise your heels as high as possible by pushing off of the balls of your feet, flexing your calf at the top of the contraction. Your knees should remain extended. Hold the contracted position for a second before you start to go back down.","Return slowly to the starting position as you breathe in while lowering your heels."]},"Reverse_Crunch":{"i":["Lie down on the floor with your legs fully extended and arms to the side of your torso with the palms on the floor. Your arms should be stationary for the entire exercise.","Move your legs up so that your thighs are perpendicular to the floor and feet are together and parallel to the floor. This is the starting position.","While inhaling, move your legs towards the torso as you roll your pelvis backwards and you raise your hips off the floor. At the end of this movement your knees will be touching your chest.","Hold the contraction for a second and move your legs back to the starting position while exhaling."]},"Cable_Reverse_Crunch":{"i":["Connect an ankle strap attachment to a low pulley cable and position a mat on the floor in front of it.","Sit down with your feet toward the pulley and attach the cable to your ankles.","Lie down, elevate your legs and bend your knees at a 90-degree angle. Your legs and the cable should be aligned. If not, adjust the pulley up or down until they are.","With your hands behind your head, bring your knees inward to your torso and elevate your hips off the floor."]},"Decline_Reverse_Crunch":{"i":["Lie on your back on a decline bench and hold on to the top of the bench with both hands. Don't let your body slip down from this position.","Hold your legs parallel to the floor using your abs to hold them there while keeping your knees and feet together. Tip: Your legs should be fully extended with a slight bend on the knee. This will be your starting position.","While exhaling, move your legs towards the torso as you roll your pelvis backwards and you raise your hips off the bench. At the end of this movement your knees will be touching your chest.","Hold the contraction for a second and move your legs back to the starting position while inhaling."]},"Mountain_Climbers":{"i":["Begin in a pushup position, with your weight supported by your hands and toes. Flexing the knee and hip, bring one leg until the knee is approximately under the hip. This will be your starting position.","Explosively reverse the positions of your legs, extending the bent leg until the leg is straight and supported by the toe, and bringing the other foot up with the hip and knee flexed. Repeat in an alternating fashion for 20-30 seconds."]},"Knee_Hip_Raise_On_Parallel_Bars":{"i":["Position your body on the vertical leg raise bench so that your forearms are resting on the pads next to the torso and holding on to the handles. Your arms will be bent at a 90 degree angle.","The torso should be straight with the lower back pressed against the pad of the machine and the legs extended pointing towards the floor. This will be your starting position.","Now as you breathe out, lift your legs up as you keep them extended. Continue this movement until your legs are roughly parallel to the floor and then hold the contraction for a second. Tip: Do not use any momentum or swinging as you perform this exercise.","Slowly go back to the starting position as you breathe in."]},"Plank":{"i":["Get into a prone position on the floor, supporting your weight on your toes and your forearms. Your arms are bent and directly below the shoulder.","Keep your body straight at all times, and hold this position as long as possible. To increase difficulty, an arm or leg can be raised."]},"T-Bar_Row_with_Handle":{"i":["Position a bar into a landmine or in a corner to keep it from moving. Load an appropriate weight onto your end.","Stand over the bar, and position a Double D row handle around the bar next to the collar. Using your hips and legs, rise to a standing position.","Assume a wide stance with your hips back and your chest up. Your arms should be extended. This will be your starting position.","Pull the weight to your upper abdomen by retracting the shoulder blades and flexing the elbows. Do not jerk the weight or cheat during the movement."]},"Leverage_Iso_Row":{"i":["Load an appropriate weight onto the pins and adjust the seat height so that the handles are at chest level. Grasp the handles with either a neutral or pronated grip. This will be your starting position.","Pull the handles towards your torso, retracting your shoulder blades as you flex the elbow.","Pause at the bottom of the motion, and then slowly return the handles to the starting position. For multiple repetitions, avoid completely returning the weight to the stops to keep tension on the muscles being worked."]},"Bent_Over_Two-Dumbbell_Row":{"i":["With a dumbbell in each hand (palms facing your torso), bend your knees slightly and bring your torso forward by bending at the waist; as you bend make sure to keep your back straight until it is almost parallel to the floor. Tip: Make sure that you keep the head up. The weights should hang directly in front of you as your arms hang perpendicular to the floor and your torso. This is your starting position.","While keeping the torso stationary, lift the dumbbells to your side (as you breathe out), keeping the elbows close to the body (do not exert any force with the forearm other than holding the weights). On the top contracted position, squeeze the back muscles and hold for a second.","Slowly lower the weight again to the starting position as you inhale."]},"Seated_Cable_Rows":{"i":["For this exercise you will need access to a low pulley row machine with a V-bar. Note: The V-bar will enable you to have a neutral grip where the palms of your hands face each other. To get into the starting position, first sit down on the machine and place your feet on the front platform or crossbar provided making sure that your knees are slightly bent and not locked.","Lean over as you keep the natural alignment of your back and grab the V-bar handles.","With your arms extended pull back until your torso is at a 90-degree angle from your legs. Your back should be slightly arched and your chest should be sticking out. You should be feeling a nice stretch on your lats as you hold the bar in front of you. This is the starting position of the exercise.","Keeping the torso stationary, pull the handles back towards your torso while keeping the arms close to it until you touch the abdominals. Breathe out as you perform that movement. At that point you should be squeezing your back muscles hard. Hold that contraction for a second and slowly go back to the original position while breathing in."]},"Wide-Grip_Lat_Pulldown":{"i":["Sit down on a pull-down machine with a wide bar attached to the top pulley. Make sure that you adjust the knee pad of the machine to fit your height. These pads will prevent your body from being raised by the resistance attached to the bar.","Grab the bar with the palms facing forward using the prescribed grip. Note on grips: For a wide grip, your hands need to be spaced out at a distance wider than shoulder width. For a medium grip, your hands need to be spaced out at a distance equal to your shoulder width and for a close grip at a distance smaller than your shoulder width.","As you have both arms extended in front of you holding the bar at the chosen grip width, bring your torso back around 30 degrees or so while creating a curvature on your lower back and sticking your chest out. This is your starting position.","As you breathe out, bring the bar down until it touches your upper chest by drawing the shoulders and the upper arms down and back. Tip: Concentrate on squeezing the back muscles once you reach the full contracted position. The upper torso should remain stationary and only the arms should move. The forearms should do no other work except for holding the bar; therefore do not try to pull down the bar using the forearms."]},"Leverage_High_Row":{"i":["Load an appropriate weight onto the pins and adjust the seat height so that you can just reach the handles above you. Adjust the knee pad to help keep you down. Grasp the handles with a pronated grip. This will be your starting position.","Pull the handles towards your torso, retracting your shoulder blades as you flex the elbow.","Pause at the bottom of the motion, and then slowly return the handles to the starting position.","For multiple repetitions, avoid completely returning the weight to the stops to keep tension on the muscles being worked."]},"Straight-Arm_Dumbbell_Pullover":{"i":["Place a dumbbell standing up on a flat bench.","Ensuring that the dumbbell stays securely placed at the top of the bench, lie perpendicular to the bench (torso across it as in forming a cross) with only your shoulders lying on the surface. Hips should be below the bench and legs bent with feet firmly on the floor. The head will be off the bench as well.","Grasp the dumbbell with both hands and hold it straight over your chest at arms length. Both palms should be pressing against the underside one of the sides of the dumbbell. This will be your starting position.\nCaution: Always ensure that the dumbbell used for this exercise is secure. Using a dumbbell with loose plates can result in the dumbbell falling apart and falling on your face.","While keeping your arms straight, lower the weight slowly in an arc behind your head while breathing in until you feel a stretch on the chest."]},"Band_Assisted_Pull-Up":{"i":["Choke the band around the center of the pullup bar. You can use different bands to provide varying levels of assistance.","Pull the end of the band down, and place one bent knee into the loop, ensuring it won't slip out. Take a medium to wide grip on the bar. This will be your starting position.","Pull yourself upward by contracting the lats as you flex the elbow. The elbow should be driven to your side. Pull to the front, attempting to get your chin over the bar. Avoid swinging or jerking movements.","After a brief pause, return to the starting position."]},"One-Arm_Dumbbell_Row":{"i":["Choose a flat bench and place a dumbbell on each side of it.","Place the right leg on top of the end of the bench, bend your torso forward from the waist until your upper body is parallel to the floor, and place your right hand on the other end of the bench for support.","Use the left hand to pick up the dumbbell on the floor and hold the weight while keeping your lower back straight. The palm of the hand should be facing your torso. This will be your starting position.","Pull the resistance straight up to the side of your chest, keeping your upper arm close to your side and keeping the torso stationary. Breathe out as you perform this step. Tip: Concentrate on squeezing the back muscles once you reach the full contracted position. Also, make sure that the force is performed with the back muscles and not the arms. Finally, the upper torso should remain stationary and only the arms should move. The forearms should do no other work except for holding the dumbbell; therefore do not try to pull the dumbbell up using the forearms."]},"Seated_One-arm_Cable_Pulley_Rows":{"i":["To get into the starting position, first sit down on the machine and place your feet on the front platform or crossbar provided making sure that your knees are slightly bent and not locked.","Lean over as you keep the natural alignment of your back and grab the single handle attachment with your left arm using a palms-down grip.","With your arm extended pull back until your torso is at a 90-degree angle from your legs. Your back should be slightly arched and your chest should be sticking out. You should be feeling a nice stretch on your lat as you hold the bar in front of you. The right arm can be kept by the waist. This is the starting position of the exercise.","Keeping the torso stationary, pull the handles back towards your torso while keeping the arms close to it as you rotate the wrist, so that by the time your hand is by your abdominals it is in a neutral position (palms facing the torso). Breathe out as you perform that movement. At that point you should be squeezing your back muscles hard."]},"Hyperextensions_Back_Extensions":{"i":["Lie face down on a hyperextension bench, tucking your ankles securely under the footpads.","Adjust the upper pad if possible so your upper thighs lie flat across the wide pad, leaving enough room for you to bend at the waist without any restriction.","With your body straight, cross your arms in front of you (my preference) or behind your head. This will be your starting position. Tip: You can also hold a weight plate for extra resistance in front of you under your crossed arms.","Start bending forward slowly at the waist as far as you can while keeping your back flat. Inhale as you perform this movement. Keep moving forward until you feel a nice stretch on the hamstrings and you can no longer keep going without a rounding of the back. Tip: Never round the back as you perform this exercise. Also, some people can go farther than others. The key thing is that you go as far as your body allows you to without rounding the back."]},"Hyperextensions_With_No_Hyperextension_Bench":{"i":["With someone holding down your legs, slide yourself down to the edge a flat bench until your hips hang off the end of the bench. Tip: Your entire upper body should be hanging down towards the floor. Also, you will be in the same position as if you were on a hyperextension bench but the range of motion will be shorter due to the height of the flat bench vs. that of the hyperextension bench.","With your body straight, cross your arms in front of you (my preference) or behind your head. This will be your starting position. Tip: You can also hold a weight plate for extra resistance in front of you under your crossed arms.","Start bending forward slowly at the waist as far as you can while keeping your back flat. Inhale as you perform this movement. Keep moving forward until you almost touch the floor or you feel a nice stretch on the hamstrings (whichever comes first). Tip: Never round the back as you perform this exercise.","Slowly raise your torso back to the initial position as you exhale. Tip: Avoid the temptation to arch your back past a straight line. Also, do not swing the torso at any time in order to protect the back from injury."]},"Dumbbell_Bicep_Curl":{"i":["Stand up straight with a dumbbell in each hand at arm's length. Keep your elbows close to your torso and rotate the palms of your hands until they are facing forward. This will be your starting position.","Now, keeping the upper arms stationary, exhale and curl the weights while contracting your biceps. Continue to raise the weights until your biceps are fully contracted and the dumbbells are at shoulder level. Hold the contracted position for a brief pause as you squeeze your biceps.","Then, inhale and slowly begin to lower the dumbbells back to the starting position."]},"Machine_Bicep_Curl":{"i":["Adjust the seat to the appropriate height and make your weight selection. Place your upper arms against the pads and grasp the handles. This will be your starting position.","Perform the movement by flexing the elbow, pulling your lower arm towards your upper arm.","Pause at the top of the movement, and then slowly return the weight to the starting position.","Avoid returning the weight all the way to the stops until the set is complete to keep tension on the muscles being worked."]},"Standing_Biceps_Cable_Curl":{"i":["Stand up with your torso upright while holding a cable curl bar that is attached to a low pulley. Grab the cable bar at shoulder width and keep the elbows close to the torso. The palm of your hands should be facing up (supinated grip). This will be your starting position.","While holding the upper arms stationary, curl the weights while contracting the biceps as you breathe out. Only the forearms should move. Continue the movement until your biceps are fully contracted and the bar is at shoulder level. Hold the contracted position for a second as you squeeze the muscle.","Slowly begin to bring the curl bar back to starting position as your breathe in."]},"Hammer_Curls":{"i":["Stand up with your torso upright and a dumbbell on each hand being held at arms length. The elbows should be close to the torso.","The palms of the hands should be facing your torso. This will be your starting position.","Now, while holding your upper arm stationary, exhale and curl the weight forward while contracting the biceps. Continue to raise the weight until the biceps are fully contracted and the dumbbell is at shoulder level. Hold the contracted position for a brief moment as you squeeze the biceps. Tip: Focus on keeping the elbow stationary and only moving your forearm.","After the brief pause, inhale and slowly begin the lower the dumbbells back down to the starting position."]},"Machine_Preacher_Curls":{"i":["Sit down on the Preacher Curl Machine and select the weight.","Place the back of your upper arms (your triceps) on the preacher pad provided and grab the handles using an underhand grip (palms facing up). Tip: Make sure that when you place the arms on the pad you keep the elbows in. This will be your starting position.","Now lift the handles as you exhale and you contract the biceps. At the top of the position make sure that you hold the contraction for a second. Tip: Only the forearms should move. The upper arms should remain stationary and on the pad at all times.","Lower the handles slowly back to the starting position as you inhale."]},"Incline_Dumbbell_Curl":{"i":["Sit back on an incline bench with a dumbbell in each hand held at arms length. Keep your elbows close to your torso and rotate the palms of your hands until they are facing forward. This will be your starting position.","While holding the upper arm stationary, curl the weights forward while contracting the biceps as you breathe out. Only the forearms should move. Continue the movement until your biceps are fully contracted and the dumbbells are at shoulder level. Hold the contracted position for a second.","Slowly begin to bring the dumbbells back to starting position as your breathe in."]},"Cable_Hammer_Curls_-_Rope_Attachment":{"i":["Attach a rope attachment to a low pulley and stand facing the machine about 12 inches away from it.","Grasp the rope with a neutral (palms-in) grip and stand straight up keeping the natural arch of the back and your torso stationary.","Put your elbows in by your side and keep them there stationary during the entire movement. Tip: Only the forearms should move; not your upper arms. This will be your starting position.","Using your biceps, pull your arms up as you exhale until your biceps touch your forearms. Tip: Remember to keep the elbows in and your upper arms stationary."]},"Incline_Dumbbell_Press":{"i":["Lie back on an incline bench with a dumbbell in each hand atop your thighs. The palms of your hands will be facing each other.","Then, using your thighs to help push the dumbbells up, lift the dumbbells one at a time so that you can hold them at shoulder width.","Once you have the dumbbells raised to shoulder width, rotate your wrists forward so that the palms of your hands are facing away from you. This will be your starting position.","Be sure to keep full control of the dumbbells at all times. Then breathe out and push the dumbbells up with your chest."]},"Leverage_Incline_Chest_Press":{"i":["Load an appropriate weight onto the pins and adjust the seat for your height. The handles should be near the top of the pectorals at the beginning of the motion. Your chest and head should be up and your shoulder blades retracted. This will be your starting position.","Press the handles forward by extending through the elbow.","After a brief pause at the top, return the weight just above the start position, keeping tension on the muscles by not returning the weight to the stops until the set is complete."]},"Incline_Cable_Chest_Press":{"i":["Adjust the weight to an appropriate amount and be seated, grasping the handles. Your upper arms should be about 45 degrees to the body, with your head and chest up. The elbows should be bent to about 90 degrees. This will be your starting position.","Begin by extending through the elbow, pressing the handles together straight in front of you. Keep your shoulder blades retracted as you execute the movement.","After pausing at full extension, return to the starting position, keeping tension on the cables."]},"Smith_Machine_Incline_Bench_Press":{"i":["Place an incline bench underneath the smith machine. Place the barbell at a height that you can reach when lying down and your arms are almost fully extended. Once the weight you need is selected, lie down on the incline bench and make sure your upper chest is aligned with the barbell. Using a pronated grip (palms facing forward) that is wider than shoulder width, unlock the bar from the rack and hold it straight over you with your arms locked. This will be your starting position.","As you breathe in, come down slowly until you feel the bar on your upper chest.","After a second pause, bring the bar back to the starting position as you breathe out and push the bar using your chest muscles. Lock your arms in the contracted position, hold for a second and then start coming down slowly again. Tip: It should take at least twice as long to go down than to come up.","When you are done, place the bar back in the rack."]},"Butterfly":{"i":["Sit on the machine with your back flat on the pad.","Take hold of the handles. Tip: Your upper arms should be positioned parallel to the floor; adjust the machine accordingly. This will be your starting position.","Push the handles together slowly as you squeeze your chest in the middle. Breathe out during this part of the motion and hold the contraction for a second.","Return back to the starting position slowly as you inhale until your chest muscles are fully stretched."]},"Dumbbell_Flyes":{"i":["Lie down on a flat bench with a dumbbell on each hand resting on top of your thighs. The palms of your hand will be facing each other.","Then using your thighs to help raise the dumbbells, lift the dumbbells one at a time so you can hold them in front of you at shoulder width with the palms of your hands facing each other. Raise the dumbbells up like you're pressing them, but stop and hold just before you lock out. This will be your starting position.","With a slight bend on your elbows in order to prevent stress at the biceps tendon, lower your arms out at both sides in a wide arc until you feel a stretch on your chest. Breathe in as you perform this portion of the movement. Tip: Keep in mind that throughout the movement, the arms should remain stationary; the movement should only occur at the shoulder joint.","Return your arms back to the starting position as you squeeze your chest muscles and breathe out. Tip: Make sure to use the same arc of motion used to lower the weights."]},"Cable_Crossover":{"i":["To get yourself into the starting position, place the pulleys on a high position (above your head), select the resistance to be used and hold the pulleys in each hand.","Step forward in front of an imaginary straight line between both pulleys while pulling your arms together in front of you. Your torso should have a small forward bend from the waist. This will be your starting position.","With a slight bend on your elbows in order to prevent stress at the biceps tendon, extend your arms to the side (straight out at both sides) in a wide arc until you feel a stretch on your chest. Breathe in as you perform this portion of the movement. Tip: Keep in mind that throughout the movement, the arms and torso should remain stationary; the movement should only occur at the shoulder joint.","Return your arms back to the starting position as you breathe out. Make sure to use the same arc of motion used to lower the weights."]},"Standing_Military_Press":{"i":["Start by placing a barbell that is about chest high on a squat rack. Once you have selected the weights, grab the barbell using a pronated (palms facing forward) grip. Make sure to grip the bar wider than shoulder width apart from each other.","Slightly bend the knees and place the barbell on your collar bone. Lift the barbell up keeping it lying on your chest. Take a step back and position your feet shoulder width apart from each other.","Once you pick up the barbell with the correct grip length, lift the bar up over your head by locking your arms. Hold at about shoulder level and slightly in front of your head. This is your starting position.","Lower the bar down to the collarbone slowly as you inhale."]},"Machine_Shoulder_Military_Press":{"i":["Sit down on the Shoulder Press Machine and select the weight.","Grab the handles to your sides as you keep the elbows bent and in line with your torso. This will be your starting position.","Now lift the handles as you exhale and you extend the arms fully. At the top of the position make sure that you hold the contraction for a second.","Lower the handles slowly back to the starting position as you inhale."]},"Dumbbell_Shoulder_Press":{"i":["While holding a dumbbell in each hand, sit on a military press bench or utility bench that has back support. Place the dumbbells upright on top of your thighs.","Now raise the dumbbells to shoulder height one at a time using your thighs to help propel them up into position.","Make sure to rotate your wrists so that the palms of your hands are facing forward. This is your starting position.","Now, exhale and push the dumbbells upward until they touch at the top."]},"Cable_Shoulder_Press":{"i":["Move the cables to the bottom of the towers and select an appropriate weight.","Stand directly in between the uprights. Grasp the cables and hold them at shoulder height, palms facing forward. This will be your starting position.","Keeping your head and chest up, extend through the elbow to press the handles directly over head.","After pausing at the top, return to the starting position and repeat."]},"Leverage_Shoulder_Press":{"i":["Load an appropriate weight onto the pins and adjust the seat for your height. The handles should be near the top of the shoulders at the beginning of the motion. Your chest and head should be up and handles held with a pronated grip. This will be your starting position.","Press the handles upward by extending through the elbow.","After a brief pause at the top, return the weight to just above the start position, keeping tension on the muscles by not returning the weight to the stops until the set is complete."]},"Seated_Cable_Shoulder_Press":{"i":["Adjust the weight to an appropriate amount and be seated, grasping the handles. Your upper arms should be about 90 degrees to the body, with your head and chest up. The elbows should also be bent to about 90 degrees. This will be your starting position.","Begin by extending through the elbow, pressing the handles together above your head.","After pausing at the top, return the handles to the starting position. Ensure that you maintain tension on the cables.","You can also execute this movement with your back off the pad and alternate hands."]},"Smith_Machine_Overhead_Shoulder_Press":{"i":["To begin, place a flat bench (or preferably one with back support) underneath a smith machine. Position the barbell at a height so that when seated on the flat bench, the arms must be almost fully extended to reach the barbell.","Once you have the correct height, sit slightly in behind the barbell so that there is an imaginary straight line from the tip of your nose to the barbell. Your feet should be stationary. Grab the barbell with the palms facing forward, unlock it and lift it up so that your arms are fully extended. This is the starting position.","Slowly begin to lower the barbell until it is level with your chin while inhaling.","Then lift the barbell back to the starting position using your shoulders while exhaling."]},"Side_Lateral_Raise":{"i":["Pick a couple of dumbbells and stand with a straight torso and the dumbbells by your side at arms length with the palms of the hand facing you. This will be your starting position.","While maintaining the torso in a stationary position (no swinging), lift the dumbbells to your side with a slight bend on the elbow and the hands slightly tilted forward as if pouring water in a glass. Continue to go up until you arms are parallel to the floor. Exhale as you execute this movement and pause for a second at the top.","Lower the dumbbells back down slowly to the starting position as you inhale."]},"Cable_Seated_Lateral_Raise":{"i":["Stand in the middle of two low pulleys that are opposite to each other and place a flat bench right behind you (in perpendicular fashion to you; the narrow edge of the bench should be the one behind you). Select the weight to be used on each pulley.","Now sit at the edge of the flat bench behind you with your feet placed in front of your knees.","Bend forward while keeping your back flat and rest your torso on the thighs.","Have someone give you the single handles attached to the pulleys. Grasp the left pulley with the right hand and the right pulley with the left after you select your weight. The pulleys should run under your knees and your arms will be extended with palms facing each other and a slight bend at the elbows. This will be the starting position."]},"Seated_Side_Lateral_Raise":{"i":["Pick a couple of dumbbells and sit at the end of a flat bench with your feet firmly on the floor. Hold the dumbbells with your palms facing in and your arms straight down at your sides at arms' length. This will be your starting position.","While maintaining the torso stationary (no swinging), lift the dumbbells to your side with a slight bend on the elbow and the hands slightly tilted forward as if pouring water in a glass. Continue to go up until you arms are parallel to the floor. Exhale as you execute this movement and pause for a second at the top.","Lower the dumbbells back down slowly to the starting position as you inhale."]},"Lateral_Raise_-_With_Bands":{"i":["To begin, stand on an exercise band so that tension begins at arm's length. Grasp the handles using a pronated (palms facing your thighs) grip that is slightly less than shoulder width. The handles should be resting on the sides of your thighs. Your arms should be extended with a slight bend at the elbows and your back should be straight. This will be your starting position.","Use your side shoulders to lift the handles to the sides as you exhale. Continue to lift the handles until they are slightly above parallel. Tip: As you lift the handles, slightly tilt the hand as if you were pouring water and keep your arms extended. Also, keep your torso stationary and pause for a second at the top of the movement.","Lower the handles back down slowly to the starting position. Inhale as you perform this portion of the movement."]},"Cable_Rope_Overhead_Triceps_Extension":{"i":["Attach a rope to the bottom pulley of the pulley machine.","Grasping the rope with both hands, extend your arms with your hands directly above your head using a neutral grip (palms facing each other). Your elbows should be in close to your head and the arms should be perpendicular to the floor with the knuckles aimed at the ceiling. This will be your starting position.","Slowly lower the rope behind your head as you hold the upper arms stationary. Inhale as you perform this movement and pause when your triceps are fully stretched.","Return to the starting position by flexing your triceps as you breathe out."]},"Machine_Triceps_Extension":{"i":["Adjust the seat to the appropriate height and make your weight selection. Place your upper arms against the pads and grasp the handles. This will be your starting position.","Perform the movement by extending the elbow, pulling your lower arm away from your upper arm.","Pause at the completion of the movement, and then slowly return the weight to the starting position.","Avoid returning the weight all the way to the stops until the set is complete to keep tension on the muscles being worked."]},"Standing_Dumbbell_Triceps_Extension":{"i":["To begin, stand up with a dumbbell held by both hands. Your feet should be about shoulder width apart from each other. Slowly use both hands to grab the dumbbell and lift it over your head until both arms are fully extended.","The resistance should be resting in the palms of your hands with your thumbs around it. The palm of the hands should be facing up towards the ceiling. This will be your starting position.","Keeping your upper arms close to your head with elbows in and perpendicular to the floor, lower the resistance in a semicircular motion behind your head until your forearms touch your biceps. Tip: The upper arms should remain stationary and only the forearms should move. Breathe in as you perform this step.","Go back to the starting position by using the triceps to raise the dumbbell. Breathe out as you perform this step."]},"Triceps_Pushdown_-_Rope_Attachment":{"i":["Attach a rope attachment to a high pulley and grab with a neutral grip (palms facing each other).","Standing upright with the torso straight and a very small inclination forward, bring the upper arms close to your body and perpendicular to the floor. The forearms should be pointing up towards the pulley as they hold the rope with the palms facing each other. This is your starting position.","Using the triceps, bring the rope down as you bring each side of the rope to the side of your thighs. At the end of the movement the arms are fully extended and perpendicular to the floor. The upper arms should always remain stationary next to your torso and only the forearms should move. Exhale as you perform this movement.","After holding for a second, at the contracted position, bring the rope slowly up to the starting point. Breathe in as you perform this step."]},"Dip_Machine":{"i":["Sit securely in a dip machine, select the weight and firmly grasp the handles.","Now keep your elbows in at your sides in order to place emphasis on the triceps. The elbows should be bent at a 90 degree angle.","As you contract the triceps, extend your arms downwards as you exhale. Tip: At the bottom of the movement, focus on keeping a little bend in your arms to keep tension on the triceps muscle.","Now slowly let your arms come back up to the starting position as you inhale."]},"Tricep_Dumbbell_Kickback":{"i":["Start with a dumbbell in each hand and your palms facing your torso. Keep your back straight with a slight bend in the knees and bend forward at the waist. Your torso should be almost parallel to the floor. Make sure to keep your head up. Your upper arms should be close to your torso and parallel to the floor. Your forearms should be pointed towards the floor as you hold the weights. There should be a 90-degree angle formed between your forearm and upper arm. This is your starting position.","Now, while keeping your upper arms stationary, exhale and use your triceps to lift the weights until the arm is fully extended. Focus on moving the forearm.","After a brief pause at the top contraction, inhale and slowly lower the dumbbells back down to the starting position."]},"Triceps_Pushdown_-_V-Bar_Attachment":{"i":["Attach a V-Bar to a high pulley and grab with an overhand grip (palms facing down) at shoulder width.","Standing upright with the torso straight and a very small inclination forward, bring the upper arms close to your body and perpendicular to the floor. The forearms should be pointing up towards the pulley as they hold the bar. The thumbs should be higher than the small finger. This is your starting position.","Using the triceps, bring the bar down until it touches the front of your thighs and the arms are fully extended perpendicular to the floor. The upper arms should always remain stationary next to your torso and only the forearms should move. Exhale as you perform this movement.","After a second hold at the contracted position, bring the V-Bar slowly up to the starting point. Breathe in as you perform this step."]},"Leg_Press":{"i":["Using a leg press machine, sit down on the machine and place your legs on the platform directly in front of you at a medium (shoulder width) foot stance. (Note: For the purposes of this discussion we will use the medium stance described above which targets overall development; however you can choose any of the three stances described in the foot positioning section).","Lower the safety bars holding the weighted platform in place and press the platform all the way up until your legs are fully extended in front of you. Tip: Make sure that you do not lock your knees. Your torso and the legs should make a perfect 90-degree angle. This will be your starting position.","As you inhale, slowly lower the platform until your upper and lower legs make a 90-degree angle.","Pushing mainly with the heels of your feet and using the quadriceps go back to the starting position as you exhale."]},"Dumbbell_Squat":{"i":["Stand up straight while holding a dumbbell on each hand (palms facing the side of your legs).","Position your legs using a shoulder width medium stance with the toes slightly pointed out. Keep your head up at all times as looking down will get you off balance and also maintain a straight back. This will be your starting position. Note: For the purposes of this discussion we will use the medium stance described above which targets overall development; however you can choose any of the three stances discussed in the foot stances section.","Begin to slowly lower your torso by bending the knees as you maintain a straight posture with the head up. Continue down until your thighs are parallel to the floor. Tip: If you performed the exercise correctly, the front of the knees should make an imaginary straight line with the toes that is perpendicular to the front. If your knees are past that imaginary line (if they are past your toes) then you are placing undue stress on the knee and the exercise has been performed incorrectly.","Begin to raise your torso as you exhale by pushing the floor with the heel of your foot mainly as you straighten the legs again and go back to the starting position."]},"Smith_Machine_Leg_Press":{"i":["Position a Smith machine bar a couple feet off of the ground. Ensure that it is resting on the safeties. After loading the bar to an appropriate weight, lie underneath the bar. Place the middle of your feet on the bar, tucking your knees to your chest. This will be your starting position.","Begin the movement by driving through your feet to move the bar upward, extending the hips and knees. Do not lock out your knees.","At the top of the motion, pause briefly before returning to the starting position."]},"Stiff-Legged_Barbell_Deadlift":{"i":["Grasp a bar using an overhand grip (palms facing down). You may need some wrist wraps if using a significant amount of weight.","Stand with your torso straight and your legs spaced using a shoulder width or narrower stance. The knees should be slightly bent. This is your starting position.","Keeping the knees stationary, lower the barbell to over the top of your feet by bending at the hips while keeping your back straight. Keep moving forward as if you were going to pick something from the floor until you feel a stretch on the hamstrings. Inhale as you perform this movement.","Start bringing your torso up straight again by extending your hips until you are back at the starting position. Exhale as you perform this movement."]},"Stiff-Legged_Dumbbell_Deadlift":{"i":["Grasp a couple of dumbbells holding them by your side at arm's length.","Stand with your torso straight and your legs spaced using a shoulder width or narrower stance. The knees should be slightly bent. This is your starting position.","Keeping the knees stationary, lower the dumbbells to over the top of your feet by bending at the waist while keeping your back straight. Keep moving forward as if you were going to pick something from the floor until you feel a stretch on the hamstrings. Exhale as you perform this movement","Start bringing your torso up straight again by extending your hips and waist until you are back at the starting position. Inhale as you perform this movement."]},"Smith_Machine_Stiff-Legged_Deadlift":{"i":["To begin, set the bar on the smith machine to a height that is around the middle of your thighs. Once the correct height is chosen and the bar is loaded, grasp the bar using a pronated (palms forward) grip that is shoulder width apart. You may need some wrist wraps if using a significant amount of weight.","Lift the bar up by fully extending your arms while keeping your back straight. Stand with your torso straight and your legs spaced using a shoulder width or narrower stance. The knees should be slightly bent. This is your starting position.","Keeping the knees stationary, lower the barbell to over the top of your feet by bending at the waist while keeping your back straight. Keep moving forward as if you were going to pick something from the floor until you feel a stretch on the hamstrings. Exhale as you perform this movement","Start bringing your torso up straight again as soon as you feel the hamstrings stretch by extending your hips and waist until you are back at the starting position. Inhale as you perform this movement."]},"Flat_Bench_Lying_Leg_Raise":{"i":["Lie with your back flat on a bench and your legs extended in front of you off the end.","Place your hands either under your glutes with your palms down or by the sides holding on to the bench. This will be your starting position.","As you keep your legs extended, straight as possible with your knees slightly bent but locked raise your legs until they make a 90-degree angle with the floor. Exhale as you perform this portion of the movement and hold the contraction at the top for a second.","Now, as you inhale, slowly lower your legs back down to the starting position."]},"Hanging_Leg_Raise":{"i":["Hang from a chin-up bar with both arms extended at arms length in top of you using either a wide grip or a medium grip. The legs should be straight down with the pelvis rolled slightly backwards. This will be your starting position.","Raise your legs until the torso makes a 90-degree angle with the legs. Exhale as you perform this movement and hold the contraction for a second or so.","Go back slowly to the starting position as you breathe in."]},"Russian_Twist":{"i":["Lie down on the floor placing your feet either under something that will not move or by having a partner hold them. Your legs should be bent at the knees.","Elevate your upper body so that it creates an imaginary V-shape with your thighs. Your arms should be fully extended in front of you perpendicular to your torso and with the hands clasped. This is the starting position.","Twist your torso to the right side until your arms are parallel with the floor while breathing out.","Hold the contraction for a second and move back to the starting position while breathing out. Now move to the opposite side performing the same techniques you applied to the right side."]},"Cable_Russian_Twists":{"i":["Connect a standard handle attachment, and position the cable to a middle pulley position.","Lie on a stability ball perpendicular to the cable and grab the handle with one hand. You should be approximately arm's length away from the pulley, with the tension of the weight on the cable.","Grab the handle with both hands and fully extend your arms above your chest. You hands should be directly in-line with the pulley. If not, adjust the pulley up or down until they are.","Keep your hips elevated and abs engaged. Rotate your torso away from the pulley for a full-quarter rotation. Your body should be flat from head to knees."]},"Standing_Cable_Wood_Chop":{"i":["Connect a standard handle to a tower, and move the cable to the highest pulley position.","With your side to the cable, grab the handle with one hand and step away from the tower. You should be approximately arm's length away from the pulley, with the tension of the weight on the cable. Your outstretched arm should be aligned with the cable.","With your feet positioned shoulder width apart, reach upward with your other hand and grab the handle with both hands. Your arms should still be fully extended.","In one motion, pull the handle down and across your body to your front knee while rotating your torso."]},"Plate_Twist":{"i":["Lie down on the floor or an exercise mat with your legs fully extended and your upper body upright. Grab the plate by its sides with both hands out in front of your abdominals with your arms slightly bent.","Slowly cross your legs near your ankles and lift them up off the ground. Your knees should also be bent slightly. Note: Move your upper body back slightly to help keep you balanced turning this exercise. This is the starting position.","Move the plate to the left side and touch the floor with it. Breathe out as you perform that movement.","Come back to the starting position as you breathe in and then repeat the movement but this time to the right side of the body. Tip: Use a slow controlled movement at all times. Jerking motions can injure the back."]},"Dumbbell_Bench_Press":{"i":["Lie down on a flat bench with a dumbbell in each hand resting on top of your thighs. The palms of your hands will be facing each other.","Then, using your thighs to help raise the dumbbells up, lift the dumbbells one at a time so that you can hold them in front of you at shoulder width.","Once at shoulder width, rotate your wrists forward so that the palms of your hands are facing away from you. The dumbbells should be just to the sides of your chest, with your upper arm and forearm creating a 90 degree angle. Be sure to maintain full control of the dumbbells at all times. This will be your starting position.","Then, as you breathe out, use your chest to push the dumbbells up. Lock your arms at the top of the lift and squeeze your chest, hold for a second and then begin coming down slowly. Tip: Ideally, lowering the weight should take about twice as long as raising it."]},"Leverage_Chest_Press":{"i":["Load an appropriate weight onto the pins and adjust the seat for your height. The handles should be near the bottom or middle of the pectorals at the beginning of the motion.","Your chest and head should be up and your shoulder blades retracted. This will be your starting position.","Press the handles forward by extending through the elbow.","After a brief pause at the top, return the weight just above the start position, keeping tension on the muscles by not returning the weight to the stops until the set is complete."]},"Cable_Chest_Press":{"i":["Adjust the weight to an appropriate amount and be seated, grasping the handles. Your upper arms should be about 45 degrees to the body, with your head and chest up. The elbows should be bent to about 90 degrees. This will be your starting position.","Begin by extending through the elbow, pressing the handles together straight in front of you. Keep your shoulder blades retracted as you execute the movement.","After pausing at full extension, return to th starting position, keeping tension on the cables.","You can also execute this movement with your back off the pad, at an incline or decline, or alternate hands."]},"Smith_Machine_Bench_Press":{"i":["Place a flat bench underneath the smith machine. Now place the barbell at a height that you can reach when lying down and your arms are almost fully extended. Once the weight you need is selected, lie down on the flat bench. Using a pronated grip that is wider than shoulder width, unlock the bar from the rack and hold it straight over you with your arms locked. This will be your starting position.","As you breathe in, come down slowly until you feel the bar on your middle chest.","After a second pause, bring the bar back to the starting position as you breathe out and push the bar using your chest muscles. Lock your arms in the contracted position, hold for a second and then start coming down slowly again. Tip: It should take at least twice as long to go down than to come up.","When you are done, lock the bar back in the rack."]},"Low_Cable_Crossover":{"i":["To move into the starting position, place the pulleys at the low position, select the resistance to be used and grasp a handle in each hand.","Step forward, gaining tension in the pulleys. Your palms should be facing forward, hands below the waist, and your arms straight. This will be your starting position.","With a slight bend in your arms, draw your hands upward and toward the midline of your body. Your hands should come together in front of your chest, palms facing up.","Return your arms back to the starting position after a brief pause."]},"Incline_Dumbbell_Flyes":{"i":["Hold a dumbbell on each hand and lie on an incline bench that is set to an incline angle of no more than 30 degrees.","Extend your arms above you with a slight bend at the elbows.","Now rotate the wrists so that the palms of your hands are facing you. Tip: The pinky fingers should be next to each other. This will be your starting position.","As you breathe in, start to slowly lower the arms to the side while keeping the arms extended and while rotating the wrists until the palms of the hand are facing each other. Tip: At the end of the movement the arms will be by your side with the palms facing the ceiling."]}};
+const ALTS = {"goblet":[["Dumbbell","Goblet_Squat","Goblet squat",1],["Machine","Hack_Squat","Hack squat"],["Machine","Smith_Machine_Squat","Smith machine squat"],["Barbell","Barbell_Squat","Barbell back squat"]],"lunge":[["Dumbbell","Dumbbell_Lunges","Dumbbell lunge",1],["Machine","Smith_Single-Leg_Split_Squat","Smith split squat"],["Dumbbell","Dumbbell_Rear_Lunge","Reverse lunge"],["Bodyweight","Bodyweight_Walking_Lunge","Walking lunge"]],"legext":[["Machine","Leg_Extensions","Leg extension",1],["Machine","Single-Leg_Leg_Extension","Single-leg extension"],["Dumbbell","Dumbbell_Step_Ups","Dumbbell step-up"],["Dumbbell","Split_Squat_with_Dumbbells","Split squat"]],"legcurl":[["Machine","Lying_Leg_Curls","Lying leg curl",1],["Machine","Seated_Leg_Curl","Seated leg curl"],["Cable","Pull_Through","Cable pull-through"],["Ball","Ball_Leg_Curl","Stability-ball curl"]],"seatcalf":[["Machine","Seated_Calf_Raise","Seated calf raise",1],["Dumbbell","Dumbbell_Seated_One-Leg_Calf_Raise","DB seated calf raise"],["Machine","Calf_Press_On_The_Leg_Press_Machine","Leg-press calf press"]],"standcalf":[["Machine","Standing_Calf_Raises","Standing calf raise",1],["Dumbbell","Standing_Dumbbell_Calf_Raise","DB calf raise"],["Machine","Smith_Machine_Calf_Raise","Smith calf raise"]],"revcrunch":[["Bodyweight","Reverse_Crunch","Reverse crunch",1],["Cable","Cable_Reverse_Crunch","Cable reverse crunch"],["Bench","Decline_Reverse_Crunch","Decline reverse crunch"]],"climber":[["Bodyweight","Mountain_Climbers","Mountain climbers",1],["Machine","Knee_Hip_Raise_On_Parallel_Bars","Captain's chair knee raise"],["Bodyweight","Plank","Plank hold"]],"tbar":[["Barbell","T-Bar_Row_with_Handle","T-bar row",1],["Machine","Leverage_Iso_Row","Machine row"],["Dumbbell","Bent_Over_Two-Dumbbell_Row","Bent-over DB row"],["Cable","Seated_Cable_Rows","Seated cable row"]],"pulldown":[["Cable","Wide-Grip_Lat_Pulldown","Lat pulldown",1],["Machine","Leverage_High_Row","Machine high row"],["Dumbbell","Straight-Arm_Dumbbell_Pullover","DB pullover"],["Bodyweight","Band_Assisted_Pull-Up","Band-assisted pull-up"]],"dbrow":[["Dumbbell","One-Arm_Dumbbell_Row","One-arm DB row",1],["Cable","Seated_One-arm_Cable_Pulley_Rows","One-arm cable row"],["Machine","Leverage_Iso_Row","Machine row"]],"hyper":[["Bench","Hyperextensions_Back_Extensions","Back extension",1],["Cable","Pull_Through","Cable pull-through"],["Floor","Hyperextensions_With_No_Hyperextension_Bench","Floor superman"]],"curl":[["Dumbbell","Dumbbell_Bicep_Curl","Dumbbell curl",1],["Machine","Machine_Bicep_Curl","Machine curl"],["Cable","Standing_Biceps_Cable_Curl","Cable curl"],["Dumbbell","Hammer_Curls","Hammer curl"]],"cablecurl":[["Cable","Standing_Biceps_Cable_Curl","Cable curl",1],["Machine","Machine_Preacher_Curls","Machine preacher curl"],["Dumbbell","Incline_Dumbbell_Curl","Incline DB curl"],["Cable","Cable_Hammer_Curls_-_Rope_Attachment","Rope hammer curl"]],"inclinedb":[["Dumbbell","Incline_Dumbbell_Press","Incline DB press",1],["Machine","Leverage_Incline_Chest_Press","Incline machine press"],["Cable","Incline_Cable_Chest_Press","Incline cable press"],["Machine","Smith_Machine_Incline_Bench_Press","Smith incline press"]],"pecdeck":[["Machine","Butterfly","Pec deck",1],["Dumbbell","Dumbbell_Flyes","Dumbbell fly"],["Cable","Cable_Crossover","Cable crossover"]],"ohp":[["Barbell","Standing_Military_Press","Barbell overhead press",1],["Machine","Machine_Shoulder_Military_Press","Machine shoulder press"],["Dumbbell","Dumbbell_Shoulder_Press","DB shoulder press"],["Cable","Cable_Shoulder_Press","Cable shoulder press"]],"shpress":[["Dumbbell","Dumbbell_Shoulder_Press","DB shoulder press",1],["Machine","Leverage_Shoulder_Press","Machine shoulder press"],["Cable","Seated_Cable_Shoulder_Press","Seated cable press"],["Machine","Smith_Machine_Overhead_Shoulder_Press","Smith shoulder press"]],"lateral":[["Dumbbell","Side_Lateral_Raise","Lateral raise",1],["Cable","Cable_Seated_Lateral_Raise","Cable lateral raise"],["Dumbbell","Seated_Side_Lateral_Raise","Seated lateral raise"],["Band","Lateral_Raise_-_With_Bands","Band lateral raise"]],"ohtri":[["Cable","Cable_Rope_Overhead_Triceps_Extension","Rope overhead extension",1],["Machine","Machine_Triceps_Extension","Machine triceps ext."],["Dumbbell","Standing_Dumbbell_Triceps_Extension","DB overhead extension"]],"pushdown":[["Cable","Triceps_Pushdown_-_Rope_Attachment","Rope pushdown",1],["Machine","Dip_Machine","Dip machine"],["Dumbbell","Tricep_Dumbbell_Kickback","DB kickback"],["Cable","Triceps_Pushdown_-_V-Bar_Attachment","V-bar pushdown"]],"legpress":[["Machine","Leg_Press","Leg press",1],["Machine","Hack_Squat","Hack squat"],["Dumbbell","Dumbbell_Squat","Dumbbell squat"],["Machine","Smith_Machine_Leg_Press","Smith leg press"]],"sldl":[["Barbell","Stiff-Legged_Barbell_Deadlift","Stiff-leg deadlift",1],["Dumbbell","Stiff-Legged_Dumbbell_Deadlift","DB stiff-leg deadlift"],["Machine","Smith_Machine_Stiff-Legged_Deadlift","Smith stiff-leg deadlift"],["Cable","Pull_Through","Cable pull-through"]],"legraise":[["Bench","Flat_Bench_Lying_Leg_Raise","Lying leg raise",1],["Machine","Knee_Hip_Raise_On_Parallel_Bars","Captain's chair raise"],["Bar","Hanging_Leg_Raise","Hanging leg raise"]],"twist":[["Bodyweight","Russian_Twist","Russian twist",1],["Cable","Cable_Russian_Twists","Cable Russian twist"],["Cable","Standing_Cable_Wood_Chop","Cable wood chop"],["Plate","Plate_Twist","Plate twist"]],"flatdb":[["Dumbbell","Dumbbell_Bench_Press","Flat DB press",1],["Machine","Leverage_Chest_Press","Machine chest press"],["Cable","Cable_Chest_Press","Cable chest press"],["Machine","Smith_Machine_Bench_Press","Smith bench press"]],"lowhigh":[["Cable","Low_Cable_Crossover","Low-to-high cable fly",1],["Dumbbell","Incline_Dumbbell_Flyes","Incline DB fly"],["Machine","Butterfly","Pec deck"]]};
+
+const EQC = {Machine:'--machine',Dumbbell:'--dumbbell',Cable:'--cable',Barbell:'--barbell'};
+const eqColor = e => `var(${EQC[e]||'--other'})`;
+const REST = {c:90,i:60,k:45};
+
+const EX = {
+ goblet:{n:'Goblet Squats',m:'Quads · glutes',t:'c',cues:['Hold the weight tight at your chest, elbows down','Sit between your heels, chest tall','Push the floor away; knees track over toes']},
+ lunge:{n:'Lunges',m:'Quads · glutes',t:'c',cues:['Long step, drop the back knee straight down','Front shin stays near vertical','Drive through the front heel to stand']},
+ legext:{n:'Leg Extensions',m:'Quads',t:'i',cues:['Knee lines up with the machine pivot','Kick up and squeeze the quads for 1 s','Lower slowly; don’t let the stack touch']},
+ legcurl:{n:'Leg Curls',m:'Hamstrings',t:'i',cues:['Hips pressed into the pad the whole time','Curl heels toward glutes, pause','Two-second lowering, no swinging']},
+ seatcalf:{n:'Seated Calf Raises',m:'Calves (soleus)',t:'k',cues:['Balls of feet on the edge, pad on lower thighs','Full stretch at the bottom, hold 1 s','Rise as high as you can, squeeze']},
+ standcalf:{n:'Standing Calf Raises',m:'Calves',t:'k',cues:['Knees soft but locked in place','Deep stretch, heels below the step','Rise onto big toes, pause at the top']},
+ revcrunch:{n:'Reverse Crunches',m:'Lower abs',t:'k',cues:['Low back pressed into the floor','Curl hips up off the floor toward ribs','Lower slowly; no swinging legs']},
+ climber:{n:'Mountain Climbers',m:'Core · cardio',t:'k',cues:['Hands under shoulders, body in a line','Drive knees to chest one at a time','Keep hips level, not piked up']},
+ tbar:{n:'T-Bar Row',m:'Mid back · lats',t:'c',cues:['Hinge to ~45°, flat back, brace','Pull the handle to your lower chest','Squeeze shoulder blades, lower under control']},
+ pulldown:{n:'Lat Pulldown',m:'Lats · biceps',t:'c',cues:['Thighs locked under the pad, slight lean back','Pull the bar to your upper chest, elbows down','Let the arms fully straighten at the top']},
+ dbrow:{n:'Dumbbell Rows',m:'Lats · mid back',t:'c',cues:['Hand and knee on the bench, back flat','Row the dumbbell to your hip pocket','Stretch fully at the bottom each rep']},
+ hyper:{n:'Hyperextensions',m:'Lower back · glutes',t:'k',cues:['Pad just below the hip bones','Lower with a neutral spine','Rise to a straight line, squeeze glutes – don’t overarch']},
+ curl:{n:'Bicep Curls',m:'Biceps',t:'i',cues:['Elbows pinned to your sides','Curl up and turn the pinkies out','Lower all the way, no body swing']},
+ cablecurl:{n:'Cable Bicep Curls',m:'Biceps',t:'i',cues:['Step back so the cable has tension at the bottom','Elbows stay still, curl to the shoulders','Slow 2-second lowering']},
+ inclinedb:{n:'Incline Dumbbell Bench Press',m:'Upper chest · front delts',t:'c',cues:['Bench at 30°, shoulder blades pinned','Lower to the upper chest, elbows ~45°','Press up and slightly in']},
+ pecdeck:{n:'Pec Deck Fly',m:'Chest',t:'i',cues:['Handles at chest height, back flat on the pad','Bring hands together, squeeze 1 s','Open slowly to a comfortable stretch']},
+ ohp:{n:'Overhead Press',m:'Shoulders · triceps',t:'c',cues:['Squeeze glutes, ribs down','Press straight up, head moves through','Lock out overhead, lower to the collarbone']},
+ shpress:{n:'Shoulder Press',m:'Shoulders · triceps',t:'c',cues:['Back flat on the bench, wrists over elbows','Press up until arms are nearly straight','Lower to ear level, no arching']},
+ lateral:{n:'Lateral Raises',m:'Side delts',t:'i',cues:['Slight lean forward, soft elbows','Lead with the elbows out to shoulder height','Lower slowly; no shrugging']},
+ ohtri:{n:'Overhead Cable Triceps Extension',m:'Triceps (long head)',t:'i',cues:['Face away from the stack, staggered stance','Elbows point forward and stay still','Straighten fully, stretch deep behind the head']},
+ pushdown:{n:'Triceps Pushdowns',m:'Triceps',t:'i',cues:['Elbows glued to your sides','Push down and spread the rope at the bottom','Let forearms rise to parallel, then repeat']},
+ legpress:{n:'Leg Press',m:'Quads · glutes',t:'c',cues:['Feet shoulder-width mid-platform','Lower until knees reach ~90°, hips stay down','Press through heels; don’t lock the knees']},
+ sldl:{n:'Stiff-Leg Deadlift',m:'Hamstrings · glutes',t:'c',cues:['Soft knees, push the hips back','Weight slides down close to the legs','Stop at a hamstring stretch, flat back; stand tall']},
+ legraise:{n:'Leg Raises',m:'Lower abs',t:'k',cues:['Hands under hips, low back down','Raise straight legs to vertical','Lower slowly; stop just above the floor']},
+ twist:{n:'Russian Twists',m:'Obliques',t:'k',cues:['Lean back to ~45°, chest up','Rotate shoulders, not just the arms','Touch each side; count each side as one']},
+ flatdb:{n:'Flat Dumbbell Bench Press',m:'Chest · triceps',t:'c',cues:['Feet planted, shoulder blades pinned','Lower to mid-chest with a stretch','Press up, dumbbells nearly touch']},
+ lowhigh:{n:'Low-to-High Cable Fly',m:'Upper chest',t:'i',cues:['Pulleys low, one foot forward','Sweep hands up and together to chin height','Soft elbows; return slowly']}
 };
 
-const DAYS=[
- {n:1,type:'legs',title:'Legs & Abs',items:[{ex:'goblet',s:4,r:12},{ex:'lunge',s:4,r:12},{ex:'legcurl',s:4,r:12},{ex:'legext',s:4,r:12},{ex:'seatcalf',s:4,r:12},{ss:['revcrunch','mtn'],s:4,r:15},{ss:['legraise','russian'],s:4,r:15},{ex:'tread',cal:100}]},
- {n:2,type:'pull',title:'Pull',items:[{ex:'tbar',s:4,r:12},{ex:'latpd',s:4,r:15},{ex:'dbrow',s:4,r:15},{ex:'hyper',s:4,r:15},{ss:['curl','cablecurl'],s:4,r:15},{ex:'tread',cal:100}]},
- {n:3,type:'push',title:'Push',items:[{ex:'incdb',s:4,r:12},{ex:'pecdeck',s:4,r:12},{ex:'ohp',s:4,r:12},{ex:'lateral',s:4,r:12},{ex:'ohtri',s:4,r:12},{ss:['pushdown','dips'],s:4,r:15},{ex:'tread',cal:100}]},
- {n:4,type:'legs',title:'Legs & Abs',items:[{ex:'legpress',s:4,r:12},{ex:'lunge',s:4,r:12},{ex:'sldl',s:4,r:12},{ex:'legext',s:4,r:12},{ex:'standcalf',s:4,r:12},{ss:['revcrunch','mtn'],s:4,r:15},{ss:['legraise','russian'],s:4,r:15},{ex:'tread',cal:100}]},
- {n:5,type:'pull',title:'Pull',items:[{ex:'tbar',s:4,r:12},{ex:'latpd',s:4,r:12},{ex:'dbrow',s:4,r:12},{ex:'hyper',s:4,r:12},{ss:['curl','cablecurl'],s:4,r:15},{ex:'tread',cal:100}]},
- {n:6,type:'push',title:'Push',items:[{ex:'flatdb',s:4,r:12},{ex:'cablefly',s:4,r:12},{ex:'shpress',s:4,r:12},{ex:'lateral',s:4,r:12},{ex:'ohtri',s:4,r:12},{ss:['pushdown','dips'],s:4,r:15},{ex:'tread',cal:100}]},
+const DAYS = [
+ {d:'Mon',k:'Legs A',f:'Quads',sub:'Quad focus, plus calves and core.',x:[['goblet',4,'12'],['lunge',3,'12'],['legext',3,'12'],['legcurl',3,'12'],['seatcalf',4,'12–15'],['revcrunch',3,'15'],['climber',3,'15']]},
+ {d:'Tue',k:'Pull A',f:'Back',sub:'Back and biceps.',x:[['tbar',4,'12'],['pulldown',3,'12–15'],['dbrow',3,'12'],['hyper',3,'15'],['curl',3,'12'],['cablecurl',3,'12']]},
+ {d:'Wed',k:'Push A',f:'Chest',sub:'Chest, shoulders and triceps.',x:[['inclinedb',4,'12'],['pecdeck',3,'12'],['ohp',3,'12'],['lateral',3,'12–15'],['ohtri',3,'12'],['pushdown',3,'12']]},
+ {d:'Thu',k:'Legs B',f:'Hams',sub:'Hamstring and glute focus, plus calves and core.',x:[['legpress',4,'12'],['sldl',3,'12'],['lunge',3,'12'],['legext',3,'12'],['standcalf',4,'12–15'],['legraise',3,'15'],['twist',3,'15']]},
+ {d:'Fri',k:'Upper Body',f:'Upper',sub:'Combined push and pull session.',x:[['pulldown',3,'12'],['dbrow',3,'12'],['cablecurl',3,'12'],['flatdb',3,'12'],['lowhigh',3,'12'],['shpress',3,'12'],['lateral',3,'12'],['pushdown',3,'12']]}
 ];
-/* ---------- time model ---------- */
-// spr = seconds per rep incl. both sides (2 s down, 1 s up); rest = seconds between sets
-const PACE={warm:300,move:60,sw:10,cardio:720};
-const TM={goblet:{spr:3,rest:90},lunge:{spr:5,rest:90},legcurl:{spr:3,rest:60},legext:{spr:3,rest:60},seatcalf:{spr:3,rest:45},
- legpress:{spr:3,rest:90},sldl:{spr:3,rest:90},standcalf:{spr:3,rest:45},revcrunch:{spr:2.5,rest:45},mtn:{spr:2,rest:45},
- legraise:{spr:3,rest:45},russian:{spr:2.4,rest:45},tbar:{spr:3,rest:90},latpd:{spr:3,rest:90},dbrow:{spr:6,rest:60},
- hyper:{spr:3,rest:60},curl:{spr:3,rest:60},cablecurl:{spr:3,rest:60},incdb:{spr:3,rest:90},pecdeck:{spr:3,rest:60},
- ohp:{spr:3,rest:90},lateral:{spr:3,rest:60},ohtri:{spr:3,rest:60},pushdown:{spr:3,rest:60},dips:{spr:3,rest:60},
- flatdb:{spr:3,rest:90},cablefly:{spr:3,rest:60},shpress:{spr:3,rest:90}};
-const wk=(ex,r)=>Math.round(TM[ex].spr*r/5)*5;
-const itemRest=it=>it.ss?Math.max(...it.ss.map(x=>TM[x].rest)):TM[it.ex].rest;
-const itemWork=it=>it.ss?wk(it.ss[0],it.r)+PACE.sw+wk(it.ss[1],it.r):wk(it.ex,it.r);
-const blockSec=it=>it.cal?PACE.cardio:it.s*itemWork(it)+(it.s-1)*itemRest(it);
-const itemName=it=>it.ss?it.ss.map(x=>EX[x].n).join(' + '):EX[it.ex].n;
-const fmt=s=>{s=Math.max(0,Math.round(s));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
-const total=S=>S.reduce((a,s)=>a+s.dur,0);
-function buildSteps(d){
- const S=[{k:'warm',dur:PACE.warm,label:'Warm-up',sub:'2 min easy cardio + 1–2 light sets of the first exercise',item:-1}];
- d.items.forEach((it,idx)=>{
-  const nm=itemName(it);
-  if(idx>0)S.push({k:'move',dur:PACE.move,label:'Move & set up',sub:nm,item:idx});
-  if(it.cal){S.push({k:'cardio',dur:PACE.cardio,label:EX[it.ex].n,sub:'Stop when the console shows 100 kcal',item:idx,set:1,of:1,last:true});return}
-  const rest=itemRest(it);
-  for(let s=1;s<=it.s;s++){
-   if(it.ss){
-    S.push({k:'work',dur:wk(it.ss[0],it.r),label:EX[it.ss[0]].n,tag:'A',item:idx,set:s,of:it.s,reps:it.r});
-    S.push({k:'work',dur:wk(it.ss[1],it.r)+PACE.sw,label:EX[it.ss[1]].n,tag:'B',item:idx,set:s,of:it.s,reps:it.r,last:true});
-   }else S.push({k:'work',dur:wk(it.ex,it.r),label:EX[it.ex].n,ex:it.ex,item:idx,set:s,of:it.s,reps:it.r,last:true});
-   if(s<it.s)S.push({k:'rest',dur:rest,label:'Rest',sub:nm,item:idx,set:s+1,of:it.s});
-  }
- });
- return S;
+
+/* storage */
+const S = {
+  get(k,d){try{const v=localStorage.getItem('ppl5:'+k);return v==null?d:JSON.parse(v)}catch(e){return d}},
+  set(k,v){try{localStorage.setItem('ppl5:'+k,JSON.stringify(v))}catch(e){}}
+};
+const todayKey = new Date().toISOString().slice(0,10);
+let swaps = S.get('swaps',{});      // key -> variant id
+let weights = S.get('w',{});        // id -> kg
+let log = S.get('log',{});          // date -> {day: {i: [bool...]}}
+if(!log[todayKey]) { log = {[todayKey]:{}}; S.set('log',log); }
+const wd = new Date().getDay(); // 0 Sun
+const todayIdx = wd>=1 && wd<=5 ? wd-1 : -1;
+let cur = S.get('lastDay', null);
+if(todayIdx>=0) cur = todayIdx; else if(cur==null) cur = 0;
+
+const $ = s => document.querySelector(s);
+const img = (id,n) => `${IMG_BASE}${id}/${n}.jpg`;
+const alts = k => ALTS[k].map(a=>({eq:a[0],id:a[1],nm:a[2],plan:!!a[3]}));
+const chosen = k => { const L=alts(k); return L.find(a=>a.id===swaps[k]) || L[0]; };
+const fmt = s => `${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`;
+const repsNum = r => parseInt(String(r).split('–').pop());
+
+function anim(id,alt,lazy=true){
+  const l = lazy?' loading="lazy"':'';
+  return `<div class="anim"><img class="bg" src="${img(id,0)}" alt=""${l}><img src="${img(id,0)}" alt="${alt} – start"${l} decoding="async"><img class="b" src="${img(id,1)}" alt="${alt} – finish"${l} decoding="async"></div>`;
 }
-function renderPlan(d){
- const S=buildSteps(d),T=total(S),seg=[],starts={};let t=0;
- S.forEach(s=>{const key=s.k==='warm'?'warm':s.k==='move'?'m'+s.item:'i'+s.item;
-  if(s.k!=='move'&&s.item>=0&&starts[s.item]===undefined)starts[s.item]=t;
-  const L=seg[seg.length-1];if(L&&L.key===key)L.sec+=s.dur;else seg.push({key,sec:s.dur,k:s.k,item:s.item});t+=s.dur});
- let alt=0;
- const bar=seg.map(g=>{let c,ttl;
-  if(g.k==='warm'){c='var(--ghost)';ttl='Warm-up'}else if(g.k==='move'){c='var(--line)';ttl='Move'}
-  else if(g.k==='cardio'){c='var(--far)';ttl='Treadmill'}
-  else{c=(alt++%2)?'color-mix(in srgb, var(--day) 55%, var(--card))':'var(--day)';ttl=itemName(d.items[g.item])}
-  return `<i style="flex:${g.sec} 0 0;background:${c}" title="${ttl} · ${fmt(g.sec)}"></i>`}).join('');
- let sc='';for(let m=0;m*60<T-300;m+=10)sc+=`<span class="${m?'':'s0'}" style="left:${(m*60/T*100).toFixed(2)}%">${m}</span>`;
- sc+=`<span class="end" style="left:100%">${fmt(T)} min</span>`;
- const moves=S.filter(s=>s.k==='move').length;
- const rows=d.items.map((it,idx)=>`<tr><td class="n">${fmt(starts[idx])}</td><td>${it.cal?EX[it.ex].n:itemName(it)}</td><td class="n">${it.cal?'100 kcal':it.ss?`${it.s} rounds × ${it.r}`:`${it.s} × ${it.r}`}</td><td class="n">${it.cal?'—':fmt(itemWork(it))}</td><td class="n">${it.cal?'—':itemRest(it)+' s'}</td><td class="n">${fmt(blockSec(it))}</td></tr>`).join('');
- document.getElementById('tplan').innerHTML=`
-  <h2>Time plan <em>~${Math.round(T/60)} min</em></h2>
-  <div class="rules">
-   <span>Tempo <b>2 s down · 1 s up</b></span><span>Rest <b>90 s</b> big lifts</span><span><b>60 s</b> isolation &amp; arm supersets</span>
-   <span><b>45 s</b> calves &amp; core</span><span>Move to next station <b>60 s</b></span><span>Treadmill <b>~12 min</b></span>
-  </div>
-  <div class="tbar" role="img" aria-label="Session timeline, ${fmt(T)} total">${bar}</div>
-  <div class="tscale">${sc}</div>
-  <div class="ttable"><table>
-   <thead><tr><th>Start</th><th>Exercise</th><th>Sets × reps</th><th>Work / set</th><th>Rest</th><th>Block</th></tr></thead>
-   <tbody><tr class="minor"><td class="n">0:00</td><td>Warm-up</td><td>—</td><td>—</td><td>—</td><td class="n">${fmt(PACE.warm)}</td></tr>${rows}
-   <tr class="minor"><td></td><td>Moving between exercises (${moves} × 1:00)</td><td></td><td></td><td></td><td class="n">${fmt(moves*PACE.move)}</td></tr></tbody>
-   <tfoot><tr><td>Total</td><td></td><td></td><td></td><td></td><td class="n">${fmt(T)}</td></tr></tfoot>
-  </table></div>
-  <p class="note">Rest is timed from the end of one set to the start of the next. At 12–15 reps, 60–90 s keeps each set hard enough to build muscle and finishes the session in about ${Math.round(T/60)} minutes. The red overtime clock is where the time usually leaks.</p>`;
+function estMin(day){
+  let t=0; day.x.forEach(([k,s,r])=>{ t += s*(repsNum(r)*3) + (s-1)*REST[EX[k].t] + 75; });
+  return Math.round(t/60);
 }
-const GROUPCAT={Quads:'legs',Hamstrings:'legs',Calves:'legs',Abs:'core',Back:'pull','Lower back':'pull',Biceps:'pull',Chest:'push',Shoulders:'push',Triceps:'push'};
+function sets(i){ const d=log[todayKey][cur]||{}; return d[i]||[]; }
 
-function fill(o){['el','wr','kn','an','ft'].forEach(k=>{if(!o[k+'2'])o[k+'2']=[o[k][0]-3,o[k][1]]});return o}
-for(const k in EX){const e=EX[k];if(e.v==='f'){e.A0={...e.A};e.B0={...e.A,...e.B}}else{e.A0=fill({...e.A});e.B0=fill({...e.A,...e.B})}e.S=e.S||[];e.M=e.M||[]}
-
-const SIDE_FAR=[['hp','kn2','an2','ft2'],['sh','el2','wr2']];
-const SIDE_NEAR=[['hp','kn','an','ft'],['hp','sh','h'],['sh','el','wr']];
-const FRONT=[['sL','sR'],['hL','hR'],['hM','sM','h'],['sL','eL','wL'],['sR','eR','wR'],['hL','kL','aL','tL'],['hR','kR','aR','tR']];
-const r1=n=>Math.round(n*10)/10;
-function lerp(A,B,t){const o={};for(const k in A){const a=A[k],b=B[k]||a;o[k]=[a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t]}return o}
-function aug(e,J){if(e.v==='f'){J.sM=[(J.sL[0]+J.sR[0])/2,(J.sL[1]+J.sR[1])/2];J.hM=[(J.hL[0]+J.hR[0])/2,(J.hL[1]+J.hR[1])/2];J.tL=[J.aL[0]-6,J.aL[1]+2];J.tR=[J.aR[0]+6,J.aR[1]+2]}return J}
-const dOf=(lines,J)=>lines.map(l=>'M'+l.map(k=>r1(J[k][0])+' '+r1(J[k][1])).join('L')).join('');
-const UNDER=new Set(['cable','lm','thick']);
-function prop(p,J){
- const g=r=>Array.isArray(r)?r:J[r];
- const [x,y]=p.j?g(p.j):[0,0];const X=r1(x),Y=r1(y);
- switch(p.k){
-  case 'db':
-   if(p.o==='v')return `<path d="M${X} ${r1(y-8)}V${r1(y+8)}" stroke="var(--day)" stroke-width="2.5"/><rect x="${r1(x-5)}" y="${r1(y-11)}" width="10" height="4" rx="1" fill="var(--day)"/><rect x="${r1(x-5)}" y="${r1(y+7)}" width="10" height="4" rx="1" fill="var(--day)"/>`;
-   if(p.o==='d')return `<circle cx="${X}" cy="${Y}" r="5.5" fill="var(--day)"/><circle cx="${X}" cy="${Y}" r="2" fill="var(--panel)"/>`;
-   return `<path d="M${r1(x-8)} ${Y}H${r1(x+8)}" stroke="var(--day)" stroke-width="2.5"/><rect x="${r1(x-11)}" y="${r1(y-5)}" width="4" height="10" rx="1" fill="var(--day)"/><rect x="${r1(x+7)}" y="${r1(y-5)}" width="4" height="10" rx="1" fill="var(--day)"/>`;
-  case 'plate':return `<circle cx="${X}" cy="${Y}" r="${p.r}" fill="color-mix(in srgb, var(--day) 22%, transparent)" stroke="var(--day)" stroke-width="3"/><circle cx="${X}" cy="${Y}" r="2.5" fill="var(--day)"/>`;
-  case 'bar':return `<path d="M${r1(x-p.w/2)} ${Y}H${r1(x+p.w/2)}" stroke="var(--day)" stroke-width="3.5" stroke-linecap="round"/>`;
-  case 'grip':return `<circle cx="${X}" cy="${Y}" r="4" fill="var(--day)"/>`;
-  case 'ball':return `<circle cx="${X}" cy="${Y}" r="7" fill="var(--day)"/>`;
-  case 'pad':return `<circle cx="${X}" cy="${Y}" r="5.5" fill="var(--eqs)"/>`;
-  case 'kpad':return `<rect x="${r1(x-10)}" y="${r1(y-13)}" width="20" height="6" rx="3" fill="var(--eqs)"/>`;
-  case 'rope':return `<path d="M${X} ${Y}l-4 7M${X} ${Y}l4 7" stroke="var(--day)" stroke-width="2.5" stroke-linecap="round"/>`;
-  case 'sled':return `<path d="M${r1(x-8)} ${r1(y-10)}L${r1(x+10)} ${r1(y+14)}" stroke="var(--eqs)" stroke-width="6" stroke-linecap="round"/>`;
-  case 'cable':{const a=g(p.a);return `<path d="M${a[0]} ${a[1]}L${X} ${Y}" stroke="var(--eqs)" stroke-width="1.3"/>`}
-  case 'thick':{const a=g(p.a),b=g(p.b);return `<path d="M${r1(a[0])} ${r1(a[1])}L${r1(b[0])} ${r1(b[1])}" stroke="var(--eqp)" stroke-width="10" stroke-linecap="round"/>`}
-  case 'lm':{const a=p.p,dx=x-a[0],dy=y-a[1],L=Math.hypot(dx,dy)||1,ux=dx/L,uy=dy/L;const ex=x+ux*14,ey=y+uy*14;
-   return `<path d="M${a[0]} ${a[1]}L${r1(ex)} ${r1(ey)}" stroke="var(--eqs)" stroke-width="3" stroke-linecap="round"/><circle cx="${r1(x+ux*12)}" cy="${r1(y+uy*12)}" r="9" fill="color-mix(in srgb, var(--day) 22%, transparent)" stroke="var(--day)" stroke-width="2.5"/>`}
- }return ''}
-function stat(p){
- switch(p.k){
-  case 'rect':return `<rect x="${p.x}" y="${p.y}" width="${p.w}" height="${p.h}" rx="2" fill="var(--eq)" stroke="var(--eqs)" stroke-width="1"/>`;
-  case 'circ':return `<circle cx="${p.x}" cy="${p.y}" r="${p.r}" fill="var(--eq)" stroke="var(--eqs)" stroke-width="1.2"/>`;
-  case 'ln':{let d='M';for(let i=0;i<p.p.length;i+=2)d+=(i?'L':'')+p.p[i]+' '+p.p[i+1];return `<path d="${d}" stroke="${p.w>=6?'var(--eqp)':'var(--eqs)'}" stroke-width="${p.w||3}" fill="none" stroke-linecap="round"/>`}
-  case 'arc':return `<path d="${p.d}" stroke="var(--day)" stroke-width="1.6" fill="none" stroke-dasharray="4 4"/><path d="M112 82l6 6-8 2" stroke="var(--day)" stroke-width="1.6" fill="none"/>`;
- }return ''}
-function poseSVG(e,t){
- const J=aug(e,lerp(e.A0,e.B0,t));
- let s='';
- if(e.v!=='f')s+=`<path class="farl" d="${dOf(SIDE_FAR,J)}"/>`;
- s+=e.M.filter(p=>UNDER.has(p.k)).map(p=>prop(p,J)).join('');
- s+=`<path class="near" d="${dOf(e.v==='f'?FRONT:SIDE_NEAR,J)}"/><circle cx="${r1(J.h[0])}" cy="${r1(J.h[1])}" r="8" fill="var(--ink)"/>`;
- s+=e.M.filter(p=>!UNDER.has(p.k)).map(p=>prop(p,J)).join('');
- return s}
-function figSVG(key){
- const e=EX[key];const J=aug(e,{...e.A0});
- const ghost=`<path class="ghost" d="${dOf(e.v==='f'?FRONT:[...SIDE_FAR,...SIDE_NEAR],J)}"/><circle cx="${J.h[0]}" cy="${J.h[1]}" r="7" fill="none" stroke="var(--ghost)" stroke-width="2" stroke-dasharray="1 4"/>`;
- return `<svg viewBox="0 -14 200 174" role="img" aria-label="${e.n}: start and finish position"><g>${e.noFloor?'':'<path d="M0 150H200" stroke="var(--line)" stroke-width="2"/>'}${e.S.map(stat).join('')}</g><g>${ghost}</g><g data-ex="${key}">${poseSVG(e,1)}</g></svg>`}
-
-/* ---------- storage ---------- */
-const today=new Date();
-const dkey=`${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
-function load(k){try{return JSON.parse(localStorage.getItem(k)||'null')}catch(e){return null}}
-function save(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
-
-/* ---------- page ---------- */
-const wd=today.getDay(); // 0 Sun
-const todayDay=wd===0?null:wd;
-let cur=(()=>{const m=location.hash.match(/^#day-([1-6])$/);return m?+m[1]:(todayDay||1)})();
-let paused=false;
-const RM=window.matchMedia('(prefers-reduced-motion: reduce)');
-
-function tabs(){
- document.getElementById('tabs').innerHTML=DAYS.map(d=>`<button class="tab" role="tab" id="tab-${d.n}" aria-selected="${d.n===cur}" data-n="${d.n}"><i style="background:var(--${d.type})"></i>Day ${d.n}</button>`).join('');
+function renderTabs(){
+  $('#tabs').innerHTML = DAYS.map((d,i)=>`<button class="tab" role="tab" aria-selected="${i===cur}" data-i="${i}">
+    ${i===todayIdx?'<span class="today" title="Today"></span>':''}<div class="d">${d.d}</div><div class="f">${d.f}</div></button>`).join('');
 }
-function totals(d){let sets=0,reps=0,ex=0;d.items.forEach(it=>{if(it.cal)return;if(it.ss){ex+=2;sets+=it.s*2;reps+=it.s*it.r*2}else{ex++;sets+=it.s;reps+=it.s*it.r}});return{sets,reps,ex}}
-function render(){
- const d=DAYS[cur-1];document.documentElement.dataset.day=d.type;
- tabs();
- const t=totals(d);
- const isToday=todayDay===cur;
- const wdName=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][cur];
- document.getElementById('dayhead').innerHTML=`
-  <div class="eyebrow">${isToday?'<span class="chip-today">Today</span>':''}<span>Day ${d.n} · ${wdName}</span>${todayDay===null&&cur===1?'<span>Sunday is rest — this is tomorrow</span>':''}</div>
-  <h1 class="dt">Day ${d.n} <em>${d.title}</em></h1>
-  <div class="stats">
-   <div class="stat"><b>${t.ex}</b><span>Exercises</span></div>
-   <div class="stat"><b>${t.sets}</b><span>Working sets</span></div>
-   <div class="stat"><b>${t.reps}</b><span>Total reps</span></div>
-   <div class="stat"><b>100</b><span>Cardio kcal</span></div>
-   <div class="stat"><b>~${Math.round(total(buildSteps(d))/60)}</b><span>Minutes total</span></div>
-  </div>
-  <div class="rowtools">
-   <button class="btn primary" id="startBtn"${SS?' hidden':''}>Start workout timer</button>
-   <button class="btn" id="motion">${paused?'Play motion':'Pause motion'}</button>
-   <button class="btn" id="clear">Clear today's ticks</button>
-   <p class="note">The timer takes you through every set, rest and move, beeps when rest is up, and ticks sets off for you. Figures move from the dotted start position to the finish.</p>
-  </div>`;
- let i=0;
- document.getElementById('grid').innerHTML=d.items.map((it,idx)=>{
-  i++;const k=`ppl:${dkey}:d${d.n}:${idx}`;const st=load(k)||[];
-  if(it.cal){const e=EX[it.ex];const done=!!st[0];
-   return `<article class="card${done?' done':''}" data-k="${k}"><div class="figs"><span class="order">${String(i).padStart(2,'0')}</span><span class="tagss">Finisher</span><div class="fig">${figSVG(it.ex)}</div></div>
-   <div class="body"><h3 class="name">${e.n}</h3><div class="rx"><b>100 kcal</b><span>steady pace · ~12 min</span></div>
-   <div class="sets"><button class="setb" data-i="0" aria-pressed="${done}" style="min-width:90px">${done?'Done':'Mark done'}</button></div>
-   <ul class="cues">${e.cues.map(c=>`<li>${c}</li>`).join('')}</ul></div></article>`}
-  const n=it.s;const btns=Array.from({length:n},(_,j)=>`<button class="setb" data-i="${j}" aria-pressed="${!!st[j]}">${it.ss?'R':'S'}${j+1}</button>`).join('');
-  const done=st.filter(Boolean).length===n;
-  if(it.ss){const [a,b]=it.ss.map(x=>EX[x]);
-   return `<article class="card${done?' done':''}" data-k="${k}"><div class="figs two"><span class="order">${String(i).padStart(2,'0')}</span><span class="tagss">Superset</span>
-    <div class="fig">${figSVG(it.ss[0])}<div class="cap">A · ${a.n}</div></div><div class="fig">${figSVG(it.ss[1])}<div class="cap">B · ${b.n}</div></div></div>
-    <div class="body"><h3 class="name">${a.n} + ${b.n}<small>Do A then B back-to-back = 1 round. Rest ${itemRest(it)} s between rounds.</small></h3>
-    <div class="rx"><b>${n} × ${it.r}</b><span>rounds × reps each · ~${Math.round(blockSec(it)/60)} min</span></div>
-    <div class="mus">${[...new Set([...a.m,...b.m])].map(m=>`<span>${m}</span>`).join('')}</div>
-    <div class="sets">${btns}</div>
-    <p class="cuesh">A · ${a.n}</p><ul class="cues">${a.cues.map(c=>`<li>${c}</li>`).join('')}</ul>
-    <p class="cuesh">B · ${b.n}</p><ul class="cues">${b.cues.map(c=>`<li>${c}</li>`).join('')}</ul></div></article>`}
-  const e=EX[it.ex];
-  return `<article class="card${done?' done':''}" data-k="${k}"><div class="figs"><span class="order">${String(i).padStart(2,'0')}</span><div class="fig">${figSVG(it.ex)}</div></div>
-   <div class="body"><h3 class="name">${e.n}</h3>
-   <div class="rx"><b>${n} × ${it.r}</b><span>sets × reps · rest ${itemRest(it)} s · ~${Math.round(blockSec(it)/60)} min</span></div>
-   <div class="mus">${e.m.map(m=>`<span>${m}</span>`).join('')}</div>
-   <div class="sets">${btns}</div>
-   <ul class="cues">${e.cues.map(c=>`<li>${c}</li>`).join('')}</ul></div></article>`;
- }).join('');
- renderPlan(d);
- document.getElementById('startBtn').onclick=()=>startSession(d.n);
- markNow(false);
- figs=[...document.querySelectorAll('g[data-ex]')].map(g=>({g,e:EX[g.dataset.ex]}));
- document.getElementById('motion').onclick=()=>{paused=!paused;document.getElementById('motion').textContent=paused?'Play motion':'Pause motion';if(paused)drawAt(1)};
- document.getElementById('clear').onclick=()=>{d.items.forEach((_,idx)=>{try{localStorage.removeItem(`ppl:${dkey}:d${d.n}:${idx}`)}catch(e){}});render()};
+function renderHead(){
+  const d=DAYS[cur];
+  $('#title').innerHTML = `Day ${cur+1} · <em>${d.k}</em>`;
+  $('#focus').textContent = d.sub;
+  const tot = d.x.reduce((a,x)=>a+x[1],0);
+  $('#stats').innerHTML = `<div class="stat"><b>${d.x.length}</b>exercises</div><div class="stat"><b>${tot}</b>sets</div><div class="stat"><b>~${estMin(d)} min</b>with rest</div>`;
+  $('#banner').innerHTML = todayIdx<0 ? `<div class="note"><b>Weekend – rest day.</b> Pick a day above if you’re training anyway.</div>` : '';
 }
-document.getElementById('tabs').addEventListener('click',ev=>{const b=ev.target.closest('.tab');if(!b)return;cur=+b.dataset.n;try{history.replaceState(null,'','#day-'+cur)}catch(e){location.hash='day-'+cur}render();window.scrollTo({top:0})});
-window.addEventListener('hashchange',()=>{const m=location.hash.match(/^#day-([1-6])$/);if(m&&+m[1]!==cur){cur=+m[1];render()}});
-document.getElementById('grid').addEventListener('click',ev=>{
- const b=ev.target.closest('.setb');if(!b)return;const card=b.closest('.card');const k=card.dataset.k;
- const st=load(k)||[];const i=+b.dataset.i;st[i]=!st[i];save(k,st);
- b.setAttribute('aria-pressed',!!st[i]);
- if(b.textContent==='Done'||b.textContent==='Mark done')b.textContent=st[i]?'Done':'Mark done';
- const all=[...card.querySelectorAll('.setb')];card.classList.toggle('done',all.every(x=>x.getAttribute('aria-pressed')==='true'));
+function renderProg(){
+  const d=DAYS[cur]; const tot=d.x.reduce((a,x)=>a+x[1],0);
+  let done=0; d.x.forEach((x,i)=>done+=sets(i).filter(Boolean).length);
+  $('#pbar').style.width = (100*done/tot)+'%';
+  $('#pnum').textContent = `${done} / ${tot} sets`;
+}
+function cardHTML(x,i){
+  const [k,s,r]=x, e=EX[k], c=chosen(k), L=alts(k), done=sets(i);
+  const swapped = !c.plan;
+  const others = L.filter(a=>a.id!==c.id);
+  const allDone = done.filter(Boolean).length===s;
+  return `<article class="card${allDone?' done':''}" data-i="${i}" data-k="${k}">
+  <div class="top"><div class="num">${String(i+1).padStart(2,'0')}</div>
+    <div class="tt"><h3>${swapped?c.nm:e.n}</h3><div class="mus">${e.m}${swapped?` · instead of ${e.n}`:''}</div></div>
+    <div class="sr">${s}×${r}<small>sets×reps</small></div></div>
+  <div class="media" data-open="${c.id}" data-nm="${swapped?c.nm:e.n}">${anim(c.id,c.nm)}
+    <div class="badges"><span class="eq" style="--c:${eqColor(c.eq)}">${c.eq}</span>${swapped?'<span class="tag sw">Swapped</span>':'<span class="tag">Your plan</span>'}</div>
+    <span class="info" aria-hidden="true">i</span>
+    <div class="ph"><span class="p1">START</span><span class="p2">FINISH</span></div></div>
+  <div class="body">
+    <ul class="cues">${e.cues.map(t=>`<li>${t}</li>`).join('')}</ul>
+    <div class="track"><span class="lbl">Sets</span>
+      ${Array.from({length:s},(_,j)=>`<button class="set${done[j]?' on':''}" data-j="${j}" aria-label="Set ${j+1}">${done[j]?'✓':j+1}</button>`).join('')}
+      <label class="wt">kg <input inputmode="decimal" data-w="${c.id}" value="${weights[c.id]??''}" placeholder="–"></label></div>
+    <div class="rest">Rest ${REST[e.t]} s between sets</div>
+    <div class="alts"><h4><span>Swap options</span>${swapped?`<button data-reset="${k}">Back to plan</button>`:''}</h4>
+      <div class="grid" style="--n:${others.length}">${others.map(a=>`<button class="alt" data-swap="${a.id}" aria-label="Swap to ${a.nm}">
+        <div class="media">${anim(a.id,a.nm)}</div>
+        <div class="cap"><span class="eq" style="--c:${eqColor(a.eq)}">${a.eq}</span><div class="nm">${a.nm}${a.plan?' ★':''}</div></div></button>`).join('')}</div>
+      <div class="hint">Tap one to swap it in. Tap the big photo for step-by-step form.</div>
+    </div>
+  </div></article>`;
+}
+function renderList(){ $('#list').innerHTML = DAYS[cur].x.map(cardHTML).join(''); }
+function renderAll(){ renderTabs(); renderHead(); renderList(); renderProg(); }
+
+$('#legend').innerHTML = ['Machine','Dumbbell','Cable','Barbell','Bodyweight'].map(e=>`<span class="eq" style="--c:${eqColor(e)}">${e}</span>`).join('') + '<span>★ = the lift in your plan</span>';
+
+/* events */
+$('#tabs').addEventListener('click',e=>{
+  const b=e.target.closest('.tab'); if(!b) return;
+  cur=+b.dataset.i; S.set('lastDay',cur); stopRest(); renderAll(); window.scrollTo({top:0,behavior:'smooth'});
 });
+$('#list').addEventListener('click',e=>{
+  const card=e.target.closest('.card'); if(!card) return;
+  const i=+card.dataset.i, k=card.dataset.k;
+  const sb=e.target.closest('.set');
+  if(sb){
+    const j=+sb.dataset.j; const day=log[todayKey][cur]||(log[todayKey][cur]={});
+    const arr=day[i]||(day[i]=[]); arr[j]=!arr[j]; S.set('log',log);
+    if(!sessStart && arr[j]) startSession(true);
+    const s=DAYS[cur].x[i][1]; const n=arr.filter(Boolean).length;
+    card.outerHTML = cardHTML(DAYS[cur].x[i],i); renderProg();
+    if(arr[j]){
+      const last = n===s; const nx = DAYS[cur].x[i+1];
+      if(last && !nx){ stopRest(); finishDay(); }
+      else startRest(last ? 60 : REST[EX[k].t], last ? `Next: ${chosenName(nx[0])}` : `Next: set ${n+1} of ${s} · ${chosenName(k)}`, last?'Move to next lift':'Rest');
+    }
+    return;
+  }
+  const sw=e.target.closest('[data-swap]');
+  if(sw){ const id=sw.dataset.swap; const L=alts(k);
+    if(L[0].id===id) delete swaps[k]; else swaps[k]=id; S.set('swaps',swaps);
+    card.outerHTML=cardHTML(DAYS[cur].x[i],i); toast(`Swapped to ${L.find(a=>a.id===id).nm}`); return; }
+  const rs=e.target.closest('[data-reset]');
+  if(rs){ delete swaps[k]; S.set('swaps',swaps); card.outerHTML=cardHTML(DAYS[cur].x[i],i); return; }
+  const op=e.target.closest('.media[data-open]');
+  if(op){ openSheet(op.dataset.open, op.dataset.nm, k); }
+});
+$('#list').addEventListener('change',e=>{
+  const w=e.target.closest('[data-w]'); if(!w) return;
+  const v=w.value.trim(); if(v) weights[w.dataset.w]=v; else delete weights[w.dataset.w]; S.set('w',weights);
+});
+const chosenName = k => { const c=chosen(k); return c.plan?EX[k].n:c.nm; };
 
-/* ---------- animation ---------- */
-let figs=[];
-function drawAt(t){figs.forEach(f=>{f.g.innerHTML=poseSVG(f.e,t)})}
-function phase(now){const p=(now%3200)/3200;let u;if(p<.15)u=0;else if(p<.5)u=(p-.15)/.35;else if(p<.65)u=1;else u=1-(p-.65)/.35;return .5-.5*Math.cos(Math.PI*u)}
-let last=0;
-function loop(now){if(!paused&&!RM.matches&&now-last>33){last=now;drawAt(phase(now))}requestAnimationFrame(loop)}
+/* sheet */
+function openSheet(id,nm,k){
+  const steps=(VAR[id]||{i:[]}).i;
+  const a=alts(k).find(x=>x.id===id);
+  $('#sheetin').innerHTML = `<div class="grab"></div>
+   <div class="media">${anim(id,nm,false)}<div class="badges"><span class="eq" style="--c:${eqColor(a.eq)}">${a.eq}</span></div>
+   <div class="ph"><span class="p1">START</span><span class="p2">FINISH</span></div></div>
+   <h3>${nm}</h3><div class="mus" style="color:var(--mute)">${EX[k].m}</div>
+   <div class="frames"><figure><img src="${img(id,0)}" alt=""><figcaption>1 · Start</figcaption></figure><figure><img src="${img(id,1)}" alt=""><figcaption>2 · Finish</figcaption></figure></div>
+   <ol>${steps.map(s=>`<li>${s}</li>`).join('')}</ol>
+   <button class="close" id="sclose">Got it</button>`;
+  $('#scrim').classList.add('show'); $('#sheet').classList.add('show'); $('#sheet').scrollTop=0;
+}
+function closeSheet(){ $('#scrim').classList.remove('show'); $('#sheet').classList.remove('show'); }
+$('#scrim').onclick=closeSheet;
+$('#sheet').addEventListener('click',e=>{ if(e.target.id==='sclose') closeSheet(); });
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeSheet(); });
 
-/* ---------- week ---------- */
-function week(){
- document.getElementById('strip').innerHTML=DAYS.map(d=>`<div style="background:var(--${d.type})"><b>DAY ${d.n}</b>${d.title}</div>`).join('');
- const vol={};Object.keys(GROUPCAT).forEach(g=>vol[g]=0);
- DAYS.forEach(d=>d.items.forEach(it=>{(it.ss||[it.ex]).forEach(x=>{const v=EX[x].vol;if(v&&it.s)vol[v]+=it.s})}));
- const rows=Object.entries(vol);const max=32,x0=118,W=480,rh=27,top=14;
- let s='';
- for(let t=0;t<=max;t+=8){const x=x0+W*t/max;s+=`<line x1="${x}" y1="${top-4}" x2="${x}" y2="${top+rows.length*rh}" stroke="var(--line)" stroke-width="1"/><text x="${x}" y="${top+rows.length*rh+18}" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="var(--muted)">${t}</text>`}
- rows.forEach(([g,v],i)=>{const y=top+i*rh;const w=W*v/max;
-  s+=`<text x="${x0-10}" y="${y+17}" text-anchor="end" font-family="Public Sans, sans-serif" font-size="13" fill="var(--ink)">${g}</text><rect x="${x0}" y="${y+5}" width="${w}" height="16" rx="3" fill="var(--${GROUPCAT[g]})"/><text x="${x0+w+6}" y="${y+17}" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="600" fill="var(--ink)">${v}</text>`});
- s+=`<text x="${x0+W/2}" y="${top+rows.length*rh+36}" text-anchor="middle" font-family="Public Sans, sans-serif" font-size="12" fill="var(--muted)">Working sets per week</text>`;
- const svg=document.getElementById('vol');svg.setAttribute('viewBox',`0 0 640 ${top+rows.length*rh+44}`);svg.innerHTML=s;
-}
-/* ---------- session timer ---------- */
-const SK='ppl:session';
-const $=id=>document.getElementById(id);
-let SS=load(SK);
-if(SS&&SS.date!==dkey){SS=null;try{localStorage.removeItem(SK)}catch(e){}}
-if(SS&&!/^#day-[1-6]$/.test(location.hash))cur=SS.day;
-let AC=null,WL=null,soundOn=true,lastRem=null,lastItem=null,endArm=0;
-function audio(){try{if(!AC)AC=new(window.AudioContext||window.webkitAudioContext)();if(AC.state==='suspended')AC.resume()}catch(e){}}
-function beep(f,d){if(!soundOn||!AC)return;try{const t=AC.currentTime,o=AC.createOscillator(),g=AC.createGain();o.type='sine';o.frequency.value=f;
- g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.35,t+.01);g.gain.exponentialRampToValueAtTime(.0001,t+d);
- o.connect(g).connect(AC.destination);o.start(t);o.stop(t+d+.03)}catch(e){}}
-async function wake(){try{if('wakeLock' in navigator&&!WL){WL=await navigator.wakeLock.request('screen');WL.addEventListener('release',()=>{WL=null})}}catch(e){}}
-function unwake(){try{WL&&WL.release()}catch(e){}WL=null}
-document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&SS&&!SS.done)wake()});
-const act=()=>SS.pause||Date.now();
-function tickSet(day,idx,i){const k=`ppl:${dkey}:d${day}:${idx}`;const st=load(k)||[];st[i]=true;save(k,st);
- if(day!==cur)return;const card=document.querySelector(`.card[data-k="${k}"]`);if(!card)return;
- const b=card.querySelector(`.setb[data-i="${i}"]`);if(b){b.setAttribute('aria-pressed','true');if(b.textContent==='Mark done')b.textContent='Done'}
- card.classList.toggle('done',[...card.querySelectorAll('.setb')].every(x=>x.getAttribute('aria-pressed')==='true'))}
-function markNow(scroll){
- document.querySelectorAll('.card.now').forEach(c=>c.classList.remove('now'));
- if(!SS||SS.done||SS.day!==cur)return;const st=buildSteps(DAYS[SS.day-1])[SS.i];if(!st||st.item<0)return;
- const c=$('grid').children[st.item];if(c){c.classList.add('now');if(scroll)c.scrollIntoView({behavior:RM.matches?'auto':'smooth',block:'start'})}}
-function startSession(day){audio();const n=Date.now();SS={day,date:dkey,i:0,t0:n,ts:n,pause:null,paused:0,over:0,sets:0,done:false};
- save(SK,SS);lastRem=null;lastItem=null;wake();cur=day;render();openPanel()}
-function openPanel(){$('sess').hidden=false;document.body.classList.add('sess-on');tickUI()}
-function closePanel(){$('sess').hidden=true;document.body.classList.remove('sess-on');document.querySelectorAll('.card.now').forEach(c=>c.classList.remove('now'));unwake()}
-function finish(){const S=buildSteps(DAYS[SS.day-1]);SS.done=true;SS.total=(act()-SS.t0)/1000;SS.plan=total(S);SS.pause=null;save(SK,SS);unwake();markNow(false);tickUI()}
-function advance(){
- const S=buildSteps(DAYS[SS.day-1]),st=S[SS.i],el=(act()-SS.ts)/1000;
- if(st.k==='rest'||st.k==='move')SS.over+=Math.max(0,el-st.dur);
- if(st.last){tickSet(SS.day,st.item,st.set-1);SS.sets++}
- SS.i++;SS.ts=Date.now();lastRem=null;
- if(SS.i>=S.length){beep(1320,.5);finish();return}
- save(SK,SS);tickUI();
-}
-function togglePause(){if(!SS||SS.done)return;if(!SS.pause)SS.pause=Date.now();else{const d=Date.now()-SS.pause;SS.ts+=d;SS.t0+=d;SS.paused+=d;SS.pause=null}save(SK,SS);tickUI()}
-function tickUI(){
- if(!SS)return;const d=DAYS[SS.day-1],S=buildSteps(d),T=total(S);
- if(SS.done){
-  $('sPhase').className='phase work';$('sPhase').textContent='DONE';
-  $('sName').textContent=`Day ${d.n} ${d.title} complete`;$('sSet').textContent='';
-  $('sTime').textContent=fmt(SS.total);$('sTime').className='';
-  $('sTarget').textContent=`plan ${fmt(SS.plan)}${SS.paused>1000?' · paused '+fmt(SS.paused/1000):''}`;
-  $('sBar').style.width='100%';$('sBar').className='';
-  $('sNext').textContent=`${SS.sets} sets finished · rest and move overtime ${fmt(SS.over)}`;
-  const df=SS.total-SS.plan;
-  $('sMeta').innerHTML=`<span class="pace ${df>60?'bad':'good'}">${df>60?fmt(df)+' over plan':df<-60?fmt(-df)+' under plan':'Right on plan'}</span>`;
-  $('sMain').textContent='Close';$('sPause').hidden=true;$('sEnd').hidden=true;return}
- $('sPause').hidden=false;$('sEnd').hidden=false;
- const st=S[SS.i],el=(act()-SS.ts)/1000;
- let before=0;for(let j=0;j<SS.i;j++)before+=S[j].dur;
- const elapsed=(act()-SS.t0)/1000,done=Math.min(el,st.dur),delta=elapsed-before-done,remain=T-before-done;
- const up=st.k==='work',strict=st.k==='rest'||st.k==='move'||st.k==='warm',over=strict&&el>st.dur;
- const isSS=st.item>=0&&!!d.items[st.item].ss;
- $('sPhase').textContent=SS.pause?'PAUSED':over?'OVERTIME':{work:'WORK',rest:'REST',move:'MOVE',warm:'WARM-UP',cardio:'CARDIO'}[st.k];
- $('sPhase').className='phase'+(over?' over':(st.k==='work'||st.k==='cardio')&&!SS.pause?' work':'');
- let name,set;
- if(st.k==='work'){name=st.label+(st.tag?` (${st.tag})`:'');set=`${isSS?'Round':'Set'} ${st.set}/${st.of} · ${st.reps} reps${st.ex==='lunge'?' each leg':''}`}
- else if(st.k==='rest'){name='Rest';set=`then ${isSS?'round':'set'} ${st.set}/${st.of} · ${st.sub}`}
- else if(st.k==='move'){name='Move & set up';set=`next: ${st.sub}`}
- else {name=st.label;set=st.sub}
- $('sName').textContent=name;$('sSet').textContent=set;
- $('sTime').textContent=up?fmt(el):el<=st.dur?fmt(Math.ceil(st.dur-el)):'+'+fmt(el-st.dur);
- $('sTime').className=over?'over':'';
- $('sTarget').textContent=up?`target ${fmt(st.dur)} · ~3 s per rep`:`of ${fmt(st.dur)}`;
- $('sBar').style.width=(Math.min(1,el/st.dur)*100).toFixed(1)+'%';$('sBar').className=over?'over':'';
- let nx=null;for(let j=SS.i+1;j<S.length;j++)if(S[j].k==='work'||S[j].k==='cardio'){nx=S[j];break}
- $('sNext').textContent=nx?`Up next: ${nx.label}${nx.tag?` (${nx.tag})`:''}${nx.k==='work'?` · ${d.items[nx.item].ss?'round':'set'} ${nx.set}/${nx.of}`:''}`:'Last one. Finish strong.';
- const pc=Math.abs(delta)<15?['good','On pace']:delta>0?['bad',fmt(delta)+' behind']:['good',fmt(-delta)+' ahead'];
- const eta=new Date(Date.now()+remain*1000).toLocaleTimeString([],{hour:'numeric',minute:'2-digit'});
- $('sMeta').innerHTML=`<span>${fmt(elapsed)} / ${fmt(T)}</span><span class="pace ${pc[0]}">${pc[1]}</span><span>Done by ${eta}</span>`;
- $('sMain').textContent={work:st.tag==='A'?'Done, go to B':'Set done',rest:'Start next set',move:'Start first set',warm:'Start lifting',cardio:'Finished 100 kcal'}[st.k];
- $('sPause').textContent=SS.pause?'Resume':'Pause';
- if(!up&&!SS.pause){const rem=Math.ceil(st.dur-el);if(rem!==lastRem){if(lastRem!==null){
-  if(rem===10&&st.k!=='cardio')beep(660,.15);if(rem>=1&&rem<=3)beep(880,.08);
-  if(rem===0){beep(1320,.45);try{navigator.vibrate&&navigator.vibrate([200,100,200])}catch(e){}}}lastRem=rem}}
- if(st.item!==lastItem){lastItem=st.item;markNow(true)}
-}
-$('sMain').onclick=()=>{audio();if(!SS)return;
- if(SS.done){SS=null;try{localStorage.removeItem(SK)}catch(e){}closePanel();render();return}
- if(SS.pause)togglePause();advance()};
-$('sPause').onclick=()=>{audio();togglePause()};
-$('sSound').onclick=()=>{audio();soundOn=!soundOn;$('sSound').textContent=soundOn?'Mute':'Unmute'};
-$('sEnd').onclick=()=>{if(Date.now()-endArm<3000){endArm=0;$('sEnd').textContent='End';finish()}
- else{endArm=Date.now();$('sEnd').textContent='Tap again to end';setTimeout(()=>{if($('sEnd'))$('sEnd').textContent='End'},3000)}};
-setInterval(()=>{if(SS&&!$('sess').hidden&&!SS.done)tickUI()},250);
+/* toast */
+let tt; function toast(m){ const t=$('#toast'); t.textContent=m; t.classList.add('show'); clearTimeout(tt); tt=setTimeout(()=>t.classList.remove('show'),2200); }
 
-render();week();if(SS){openPanel();if(!SS.done)wake()}requestAnimationFrame(loop);
+/* audio */
+let ac; function beep(f=880,d=.15,when=0){ try{ ac=ac||new (window.AudioContext||window.webkitAudioContext)(); const o=ac.createOscillator(),g=ac.createGain();
+  o.frequency.value=f; o.connect(g); g.connect(ac.destination); const t=ac.currentTime+when; g.gain.setValueAtTime(.0001,t); g.gain.exponentialRampToValueAtTime(.3,t+.02); g.gain.exponentialRampToValueAtTime(.0001,t+d); o.start(t); o.stop(t+d+.02);}catch(e){} }
+
+/* rest timer */
+let restEnd=0, restDur=0, restTick=null;
+function startRest(sec,next,head){
+  restDur=sec; restEnd=Date.now()+sec*1000;
+  $('#rh').textContent=head; $('#rn').textContent=next;
+  $('#restbar').classList.add('show'); $('#restbar').classList.remove('over');
+  clearInterval(restTick); restTick=setInterval(tickRest,250); tickRest();
+  try{ ac=ac||new (window.AudioContext||window.webkitAudioContext)(); ac.resume(); }catch(e){}
+}
+let warned=false;
+function tickRest(){
+  const left=Math.ceil((restEnd-Date.now())/1000);
+  const L=Math.max(0,left);
+  $('#rt').textContent=fmt(L);
+  $('#rc').style.strokeDashoffset = 144.5*(1-L/restDur);
+  if(left===3 && !warned){ warned=true; beep(660,.1); beep(660,.1,1); beep(660,.1,2); }
+  if(left<=0){ clearInterval(restTick); warned=false; beep(990,.35); try{navigator.vibrate&&navigator.vibrate([200,100,200])}catch(e){}
+    $('#restbar').classList.add('over'); $('#rh').textContent='Go – next set'; $('#rt').textContent='0:00';
+    setTimeout(()=>{ if(Date.now()>=restEnd) stopRest(); },6000); }
+}
+function stopRest(){ clearInterval(restTick); warned=false; $('#restbar').classList.remove('show','over'); }
+$('#radd').onclick=()=>{ restEnd+=15000; restDur+=15; tickRest(); };
+$('#rskip').onclick=stopRest;
+
+/* session clock */
+let sessStart = S.get('sess:'+todayKey+':'+cur, 0), sessTick=null;
+function startSession(auto){
+  sessStart=Date.now(); S.set('sess:'+todayKey+':'+cur, sessStart); runSess();
+  if(!auto) toast(`Session started · plan ~${estMin(DAYS[cur])} min`);
+}
+function runSess(){ clearInterval(sessTick); const b=$('#sess');
+  if(!sessStart){ b.textContent='Start ▸'; b.classList.remove('on'); return; }
+  b.classList.add('on'); const f=()=>{ b.textContent='⏱ '+fmt(Math.floor((Date.now()-sessStart)/1000)); }; f(); sessTick=setInterval(f,1000); }
+$('#sess').onclick=()=>{ if(!sessStart) startSession(false); else finishDay(); };
+function finishDay(){
+  if(!sessStart){ toast('Day complete 💪'); return; }
+  const m=Math.round((Date.now()-sessStart)/60000), p=estMin(DAYS[cur]);
+  toast(`Done in ${m} min · plan ~${p} min${m>p+5?` · ${m-p} min over`:' · on pace'}`);
+  sessStart=0; S.set('sess:'+todayKey+':'+cur,0); runSess();
+}
+const _render = renderAll;
+renderAll = function(){ _render(); sessStart = S.get('sess:'+todayKey+':'+cur,0); runSess(); };
+renderAll();
+let wl=null; document.addEventListener('click',async()=>{ try{ if(!wl && navigator.wakeLock && sessStart) wl=await navigator.wakeLock.request('screen'); }catch(e){} });
 </script>
 </body>
 </html>
